@@ -2,10 +2,10 @@ import React from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 
-import bannerImg1 from '../../../assets/Banner1.jpg';
-import bannerImg2 from '../../../assets/Banner2.jpg';
-import bannerImg3 from '../../../assets/Banner3.jpg';
-import bannerImg4 from '../../../assets/Banner4.jpg';
+import bannerImg1 from '../../assets/Banner1.jpg';
+import bannerImg2 from '../../assets/Banner2.jpg';
+import bannerImg3 from '../../assets/Banner3.jpg';
+import bannerImg4 from '../../assets/Banner4.jpg';
 
 const BannerSlider = () => {
   return (
