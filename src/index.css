@@ -1,4 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap');
 @import "tailwindcss";
+
 
 @layer base {
   :root {
@@ -52,4 +54,8 @@
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
   }
+}
+*{
+  font-family: "DM Serif Display", serif;
+  font-weight: 600;
 }

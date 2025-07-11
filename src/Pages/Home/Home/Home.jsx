@@ -1,9 +1,14 @@
 import React from 'react';
+import BannerSlider from '../BannerSlider/BannerSlider';
+import FeaturedPremium from '../FeaturedPremium/FeaturedPremium';
+import HowItsWorks from './HowItsWork/HowItsWorks';
 
 const Home = () => {
     return (
         <div>
-            <h1>this is home</h1>
+            <BannerSlider/>
+            <FeaturedPremium/>
+            <HowItsWorks/>
         </div>
     );
 };
