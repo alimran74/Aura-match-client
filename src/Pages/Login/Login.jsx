@@ -7,7 +7,7 @@ import loginAnimation from "../../assets/login.json";
 import bgCorner from "../../assets/bg1.png";
 import fullBg from "../../assets/full-bg.png";
 import AuraLogo from "../../components/AuraLogo/AuraLogo";
-import { useLoading } from "../../context/LoadingContext"; // global spinner
+import { useLoading } from "../../context/LoadingContext"; 
 
 const Login = () => {
   const {
@@ -118,18 +118,20 @@ const Login = () => {
           </div>
 
           {/* Submit */}
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             type="submit"
-            className="w-full bg-[#f19c79] hover:bg-[#e6855f] text-white font-semibold py-2 rounded-md shadow transition"
+            className="w-full bg-[#f19c79] hover:bg-[#e6855f] text-white font-semibold py-2 rounded-md shadow transition cursor-pointer"
           >
             Login
-          </button>
+          </motion.button>
 
           {/* Google Sign-In Button */}
           <button
             type="button"
             onClick={() => console.log("Handle Google Sign In")}
-            className="w-full flex items-center justify-center gap-3 border border-[#ccc] hover:border-[#f19c79] text-[#444] font-medium py-2 rounded-md shadow-sm transition"
+            className="w-full flex items-center justify-center gap-3 border border-[#ccc] hover:border-[#f19c79] text-[#444] font-medium cursor-pointer py-2 rounded-md shadow-sm transition"
           >
             <img
               src="https://www.svgrepo.com/show/475656/google-color.svg"

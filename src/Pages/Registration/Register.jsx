@@ -1,12 +1,14 @@
 import { useForm } from "react-hook-form";
-import { useState } from "react";
 import { motion } from "framer-motion";
 import Lottie from "lottie-react";
 import { Link } from "react-router";
+import { toast } from "react-toastify";
+
 import registerAnimation from "../../assets/register.json";
 import bgCorner from "../../assets/bg1.png";
 import fullBg from "../../assets/full-bg.png";
 import AuraLogo from "../../components/AuraLogo/AuraLogo";
+import { useLoading } from "../../context/LoadingContext";
 
 const Register = () => {
   const {
@@ -14,18 +16,23 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  const [loading, setLoading] = useState(false);
+  const { showLoading, hideLoading } = useLoading();
 
   const onSubmit = (data) => {
-    setLoading(true);
-    console.log(data);
-    setTimeout(() => setLoading(false), 2000);
+    showLoading();
+    console.log("Register Data:", data);
+
+    // Simulated registration API
+    setTimeout(() => {
+      hideLoading();
+      toast.success("Account created successfully!");
+      // navigate('/dashboard') if needed
+    }, 2000);
   };
 
   return (
     <div className="relative min-h-screen bg-[#f6f4d2] flex flex-col lg:flex-row items-center justify-center px-4 py-10 overflow-hidden">
-      {/* Background image overlay */}
+      {/* Full Background Image Overlay */}
       <div
         className="absolute inset-0 z-0"
         style={{
@@ -36,7 +43,7 @@ const Register = () => {
         }}
       ></div>
 
-      {/* Top Aura Logo */}
+      {/* Top Logo */}
       <div className="absolute top-4 left-4 z-20">
         <Link to="/" className="flex items-center gap-2">
           <div className="scale-125 font-extrabold text-3xl px-4">
@@ -73,6 +80,9 @@ const Register = () => {
         transition={{ duration: 0.8 }}
         className="w-full max-w-md bg-white bg-opacity-90 p-8 rounded-3xl shadow-2xl z-10 backdrop-blur-sm"
       >
+        <h1 className="text-3xl font-bold mb-4 text-center flex justify-center">
+          <AuraLogo />
+        </h1>
         <h2 className="text-3xl font-bold text-[#f19c79] mb-6 text-center">
           Create an Account 💖
         </h2>
@@ -102,7 +112,9 @@ const Register = () => {
               placeholder="you@example.com"
             />
             {errors.email && (
-              <p className="text-sm text-red-500 mt-1">{errors.email.message}</p>
+              <p className="text-sm text-red-500 mt-1">
+                {errors.email.message}
+              </p>
             )}
           </div>
 
@@ -111,7 +123,10 @@ const Register = () => {
             <label className="block text-sm font-semibold mb-1">Password</label>
             <input
               type="password"
-              {...register("password", { required: "Password is required" })}
+              {...register("password", {
+                required: "Password is required",
+                minLength: 6,
+              })}
               className="w-full px-4 py-2 border border-[#ccc] rounded-md focus:outline-none focus:ring-2 focus:ring-[#f19c79]"
               placeholder="••••••••"
             />
@@ -124,7 +139,9 @@ const Register = () => {
 
           {/* Photo URL */}
           <div>
-            <label className="block text-sm font-semibold mb-1">Photo URL</label>
+            <label className="block text-sm font-semibold mb-1">
+              Photo URL
+            </label>
             <input
               type="url"
               {...register("photo", { required: "Photo URL is required" })}
@@ -132,45 +149,24 @@ const Register = () => {
               placeholder="https://example.com/photo.jpg"
             />
             {errors.photo && (
-              <p className="text-sm text-red-500 mt-1">{errors.photo.message}</p>
+              <p className="text-sm text-red-500 mt-1">
+                {errors.photo.message}
+              </p>
             )}
           </div>
 
-          {/* Gender Selection */}
-          <div className="flex gap-4 items-center">
-            <label className="block text-sm font-semibold">Gender:</label>
-            <label className="flex items-center gap-1 text-sm">
-              <input
-                type="radio"
-                value="male"
-                {...register("gender", { required: true })}
-              />
-              Male
-            </label>
-            <label className="flex items-center gap-1 text-sm">
-              <input
-                type="radio"
-                value="female"
-                {...register("gender", { required: true })}
-              />
-              Female
-            </label>
-          </div>
-
-          {/* Submit */}
-          <button
+          {/* Submit Button */}
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             type="submit"
-            disabled={loading}
-            className="w-full bg-[#f19c79] hover:bg-[#e6855f] text-white font-semibold py-2 rounded-md shadow transition"
+            className="w-full bg-[#f19c79] hover:bg-[#e6855f] text-white font-semibold py-2 rounded-md shadow transition cursor-pointer"
           >
-            {loading ? "Creating Account..." : "Register"}
-          </button>
-
-          {/* Google Sign-In */}
-          
+            Register
+          </motion.button>
         </form>
 
-        {/* Already have account */}
+        {/* Already Registered Link */}
         <p className="text-sm mt-4 text-center text-[#444]">
           Already have an account?{" "}
           <Link
