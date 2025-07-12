@@ -1,36 +1,31 @@
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Lottie from "lottie-react";
 import { Link } from "react-router";
-
-import loginAnimation from "../../assets/login.json";
+import registerAnimation from "../../assets/register.json";
 import bgCorner from "../../assets/bg1.png";
 import fullBg from "../../assets/full-bg.png";
 import AuraLogo from "../../components/AuraLogo/AuraLogo";
-import { useLoading } from "../../context/LoadingContext"; // global spinner
 
-const Login = () => {
+const Register = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { showLoading, hideLoading } = useLoading();
+
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = (data) => {
-    showLoading();
-    console.log("Login Data:", data);
-
-    // Simulate login process
-    setTimeout(() => {
-      hideLoading();
-      // redirect or show toast here
-    }, 2000);
+    setLoading(true);
+    console.log(data);
+    setTimeout(() => setLoading(false), 2000);
   };
 
   return (
     <div className="relative min-h-screen bg-[#f6f4d2] flex flex-col lg:flex-row items-center justify-center px-4 py-10 overflow-hidden">
-      {/* Background Image Overlay */}
+      {/* Background image overlay */}
       <div
         className="absolute inset-0 z-0"
         style={{
@@ -50,14 +45,12 @@ const Login = () => {
         </Link>
       </div>
 
-      {/* Top-Right Corner Image */}
+      {/* Corner Images */}
       <motion.img
         src={bgCorner}
         alt="top corner bg"
         className="absolute top-0 right-0 w-48 md:w-90 z-0 scale-x-[-1] scale-y-[-1]"
       />
-
-      {/* Bottom-Left Corner Image */}
       <motion.img
         src={bgCorner}
         alt="bottom corner bg"
@@ -67,13 +60,13 @@ const Login = () => {
       {/* Lottie Animation */}
       <div className="w-full lg:w-1/2 flex justify-center mb-10 lg:mb-0 z-10">
         <Lottie
-          animationData={loginAnimation}
+          animationData={registerAnimation}
           loop
-          className="w-64 sm:w-80 md:w-[300px] lg:w-[400px] h-auto"
+          className="w-64 sm:w-100 md:w-[300px] lg:w-[600px] h-auto"
         />
       </div>
 
-      {/* Login Form */}
+      {/* Register Form */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -81,10 +74,24 @@ const Login = () => {
         className="w-full max-w-md bg-white bg-opacity-90 p-8 rounded-3xl shadow-2xl z-10 backdrop-blur-sm"
       >
         <h2 className="text-3xl font-bold text-[#f19c79] mb-6 text-center">
-          Welcome Back 💫
+          Create an Account 💖
         </h2>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          {/* Name */}
+          <div>
+            <label className="block text-sm font-semibold mb-1">Name</label>
+            <input
+              type="text"
+              {...register("name", { required: "Name is required" })}
+              className="w-full px-4 py-2 border border-[#ccc] rounded-md focus:outline-none focus:ring-2 focus:ring-[#f19c79]"
+              placeholder="Your name"
+            />
+            {errors.name && (
+              <p className="text-sm text-red-500 mt-1">{errors.name.message}</p>
+            )}
+          </div>
+
           {/* Email */}
           <div>
             <label className="block text-sm font-semibold mb-1">Email</label>
@@ -92,12 +99,10 @@ const Login = () => {
               type="email"
               {...register("email", { required: "Email is required" })}
               className="w-full px-4 py-2 border border-[#ccc] rounded-md focus:outline-none focus:ring-2 focus:ring-[#f19c79]"
-              placeholder="example@mail.com"
+              placeholder="you@example.com"
             />
             {errors.email && (
-              <p className="text-sm text-red-500 mt-1">
-                {errors.email.message}
-              </p>
+              <p className="text-sm text-red-500 mt-1">{errors.email.message}</p>
             )}
           </div>
 
@@ -108,7 +113,7 @@ const Login = () => {
               type="password"
               {...register("password", { required: "Password is required" })}
               className="w-full px-4 py-2 border border-[#ccc] rounded-md focus:outline-none focus:ring-2 focus:ring-[#f19c79]"
-              placeholder="*******"
+              placeholder="••••••••"
             />
             {errors.password && (
               <p className="text-sm text-red-500 mt-1">
@@ -117,37 +122,62 @@ const Login = () => {
             )}
           </div>
 
+          {/* Photo URL */}
+          <div>
+            <label className="block text-sm font-semibold mb-1">Photo URL</label>
+            <input
+              type="url"
+              {...register("photo", { required: "Photo URL is required" })}
+              className="w-full px-4 py-2 border border-[#ccc] rounded-md focus:outline-none focus:ring-2 focus:ring-[#f19c79]"
+              placeholder="https://example.com/photo.jpg"
+            />
+            {errors.photo && (
+              <p className="text-sm text-red-500 mt-1">{errors.photo.message}</p>
+            )}
+          </div>
+
+          {/* Gender Selection */}
+          <div className="flex gap-4 items-center">
+            <label className="block text-sm font-semibold">Gender:</label>
+            <label className="flex items-center gap-1 text-sm">
+              <input
+                type="radio"
+                value="male"
+                {...register("gender", { required: true })}
+              />
+              Male
+            </label>
+            <label className="flex items-center gap-1 text-sm">
+              <input
+                type="radio"
+                value="female"
+                {...register("gender", { required: true })}
+              />
+              Female
+            </label>
+          </div>
+
           {/* Submit */}
           <button
             type="submit"
+            disabled={loading}
             className="w-full bg-[#f19c79] hover:bg-[#e6855f] text-white font-semibold py-2 rounded-md shadow transition"
           >
-            Login
+            {loading ? "Creating Account..." : "Register"}
           </button>
 
-          {/* Google Sign-In Button */}
-          <button
-            type="button"
-            onClick={() => console.log("Handle Google Sign In")}
-            className="w-full flex items-center justify-center gap-3 border border-[#ccc] hover:border-[#f19c79] text-[#444] font-medium py-2 rounded-md shadow-sm transition"
-          >
-            <img
-              src="https://www.svgrepo.com/show/475656/google-color.svg"
-              alt="Google"
-              className="w-5 h-5"
-            />
-            Continue with Google
-          </button>
+          {/* Google Sign-In */}
+          
         </form>
 
-        {/* Register Redirect */}
+        {/* Already have account */}
         <p className="text-sm mt-4 text-center text-[#444]">
-          Don’t have an account?{" "}
+          Already have an account?{" "}
           <Link
-            to="/register"
+            to="/login"
             className="text-[#f19c79] hover:underline font-semibold"
           >
-            Register
+            Login
           </Link>
         </p>
       </motion.div>
@@ -155,4 +185,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

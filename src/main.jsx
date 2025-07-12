@@ -4,9 +4,12 @@ import "./index.css";
 
 import { RouterProvider } from "react-router";
 import { router } from "./Router/Router";
+import { LoadingProvider } from "./context/LoadingContext";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <LoadingProvider>
+      <RouterProvider router={router} />
+    </LoadingProvider>
   </StrictMode>
 );

@@ -48,7 +48,7 @@ const Navbar = () => {
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link
               to="/login"
-              className="bg-[#f19c79] text-white px-4 py-1.5 rounded-full shadow hover:bg-[#e6855f] transition-all duration-300"
+              className="bg-[#f19c79] text-white  px-4 py-1.5 rounded-xl shadow hover:bg-[#e6855f] transition-all duration-300"
             >
               Login
             </Link>
@@ -69,7 +69,7 @@ const Navbar = () => {
         <div className="md:hidden absolute right-4 z-20">
           <Link
             to="/login"
-            className="bg-[#f19c79] text-white px-3 py-1 rounded-full shadow hover:bg-[#e6855f] transition"
+            className="bg-[#f19c79] text-white px-3 py-1 rounded-xl shadow hover:bg-[#e6855f] transition"
           >
             Login
           </Link>
@@ -84,7 +84,7 @@ const Navbar = () => {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden mx-auto mt-2 bg-[#f6f4d2] rounded-lg p-4 space-y-2 shadow w-[80%] max-w-xs min-w-[240px] text-center overflow-hidden"
+            className="md:hidden mx-auto mt-2 bg-[#f6f4d2] rounded-lg p-4 space-y-2 shadow w-[30%] max-w-xs min-w-[240px] text-center overflow-hidden"
           >
             {links.map((link) => (
               <NavLink

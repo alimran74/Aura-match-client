@@ -16,7 +16,7 @@ const BannerSlider = () => {
         showThumbs={false}
         showStatus={false}
         showIndicators={true}
-        interval={4000}
+        interval={2000}
         transitionTime={700}
         swipeable={true}
         emulateTouch={true}
