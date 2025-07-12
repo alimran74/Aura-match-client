@@ -102,7 +102,7 @@ const Contact = () => {
               Contact Info
             </h4>
             <p className="flex items-center gap-2 mb-2">
-              <FaPhoneAlt className="text-[#f19c79]" /> +880-1234-567890
+              <FaPhoneAlt className="text-[#f19c79]" /> +880-1956-495589
             </p>
             <p className="flex items-center gap-2 mb-2">
               <FaEnvelope className="text-[#f19c79]" /> support@auramatch.com
