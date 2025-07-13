@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import AuraLogo from "../AuraLogo/AuraLogo";
-
+import useAuth from "../../hooks/useAuth"; // adjust the path if needed
 
 const links = [
   { name: "Home", path: "/" },
@@ -14,6 +14,7 @@ const links = [
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { user, logOut } = useAuth();
 
   return (
     <header className="bg-[#d4e09b] text-[#222] shadow-md sticky top-0 z-50">
@@ -25,7 +26,10 @@ const Navbar = () => {
 
         {/* Centered Desktop NavLinks */}
         <nav className="hidden md:flex space-x-6 absolute left-1/2 transform -translate-x-1/2 items-center">
-          {links.map((link) => (
+          {[
+            ...links,
+            ...(user ? [{ name: "Dashboard", path: "/dashboard" }] : []),
+          ].map((link) => (
             <NavLink
               key={link.path}
               to={link.path}
@@ -45,14 +49,31 @@ const Navbar = () => {
 
         {/* Login Button Desktop */}
         <div className="hidden md:block z-20">
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Link
-              to="/login"
-              className="bg-[#f19c79] text-white  px-4 py-1.5 rounded-xl shadow hover:bg-[#e6855f] transition-all duration-300"
-            >
-              Login
-            </Link>
-          </motion.div>
+          {user ? (
+            <div className="flex items-center gap-2">
+              <img
+                src={user.photoURL}
+                alt="User"
+                className="w-10 h-10 rounded-full border-2 border-[#f19c79]"
+                title={user.displayName}
+              />
+              <button
+                onClick={logOut}
+                className="text-sm px-3 py-1 bg-red-400 hover:bg-red-500 text-white rounded-lg transition"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Link
+                to="/login"
+                className="bg-[#f19c79] text-white px-4 py-1.5 rounded-xl shadow hover:bg-[#e6855f] transition-all duration-300"
+              >
+                Login
+              </Link>
+            </motion.div>
+          )}
         </div>
 
         {/* Hamburger Toggle */}
@@ -67,12 +88,21 @@ const Navbar = () => {
 
         {/* Mobile Login Button */}
         <div className="md:hidden absolute right-4 z-20">
-          <Link
-            to="/login"
-            className="bg-[#f19c79] text-white px-3 py-1 rounded-xl shadow hover:bg-[#e6855f] transition"
-          >
-            Login
-          </Link>
+          {user ? (
+            <img
+              src={user.photoURL}
+              alt="User"
+              className="w-8 h-8 rounded-full border-2 border-[#f19c79]"
+              title={user.displayName}
+            />
+          ) : (
+            <Link
+              to="/login"
+              className="bg-[#f19c79] text-white px-3 py-1 rounded-xl shadow hover:bg-[#e6855f] transition"
+            >
+              Login
+            </Link>
+          )}
         </div>
       </div>
 
@@ -86,7 +116,10 @@ const Navbar = () => {
             transition={{ duration: 0.3 }}
             className="md:hidden mx-auto mt-2 bg-[#f6f4d2] rounded-lg p-4 space-y-2 shadow w-[30%] max-w-xs min-w-[240px] text-center overflow-hidden"
           >
-            {links.map((link) => (
+            {[
+              ...links,
+              ...(user ? [{ name: "Dashboard", path: "/dashboard" }] : []),
+            ].map((link) => (
               <NavLink
                 key={link.path}
                 to={link.path}
@@ -96,6 +129,18 @@ const Navbar = () => {
                 {link.name}
               </NavLink>
             ))}
+
+            {user && (
+              <button
+                onClick={() => {
+                  logOut();
+                  setIsOpen(false); // close menu after logout
+                }}
+                className="block w-full font-medium text-red-500 hover:text-red-600 transition mt-2"
+              >
+                Logout
+              </button>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

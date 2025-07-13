@@ -20,7 +20,7 @@ const AuthProvider = ({ children }) => {
   const { showLoading, hideLoading } = useLoading(); // ✅ use loading functions
 
   // Create new user
-  const registerUser = (email, password) => {
+  const createUser = (email, password) => {
     showLoading();
     return createUserWithEmailAndPassword(auth, email, password)
       .finally(() => hideLoading());
@@ -70,7 +70,7 @@ const AuthProvider = ({ children }) => {
   const authInfo = {
     user,
     loading,
-    registerUser,
+    createUser,
     updateUserProfile,
     loginUser,
     signInWithGoogle,

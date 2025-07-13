@@ -9,6 +9,10 @@ import Contact from "../Pages/Contact/Contact";
 import AuthLayout from "../Layouts/AuthLayout";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Registration/Register";
+import PrivateRoute from "../routes/PrivateRoute";
+import Biodatas from "../Pages/Biodatas/Biodatas";
+import DashboardLayout from "../Layouts/DashboardLayout";
+import Forbidden from "../Pages/Error/Forbidden";
 
 export const router = createBrowserRouter([
   {
@@ -40,7 +44,24 @@ export const router = createBrowserRouter([
       {
         path: 'register',
         Component: Register,
+      },
+      {
+        path: '/biodatas',
+        element: <PrivateRoute>
+          <Biodatas/>
+        </PrivateRoute>
+
       }
     ]
+  },
+  {
+    path:'/dashboard',
+    element: <PrivateRoute>
+      <DashboardLayout/>
+    </PrivateRoute>
+  },
+  {
+    path: '/forbidden',
+    element: <Forbidden/>
   }
 ]);
