@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
 import Lottie from "lottie-react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 
 import registerAnimation from "../../assets/register.json";
@@ -9,6 +9,8 @@ import bgCorner from "../../assets/bg1.png";
 import fullBg from "../../assets/full-bg.png";
 import AuraLogo from "../../components/AuraLogo/AuraLogo";
 import { useLoading } from "../../context/LoadingContext";
+import useAxios from "../../hooks/useAxios";
+import useAuth from "../../hooks/useAuth";
 
 const Register = () => {
   const {
@@ -16,23 +18,50 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const { showLoading, hideLoading } = useLoading();
+  const axiosSecure = useAxios(); // or useAxiosSecure()
+  const navigate = useNavigate();
+  const { createUser, updateUserProfile } = useAuth();
 
-  const onSubmit = (data) => {
-    showLoading();
-    console.log("Register Data:", data);
+  const onSubmit = async (data) => {
+    const { name, email, password, photo } = data;
 
-    // Simulated registration API
-    setTimeout(() => {
+    try {
+      showLoading();
+
+      // Step 1: Firebase Auth
+      const result = await createUser(email, password);
+      await updateUserProfile({ displayName: name, photoURL: photo });
+
+      // Step 2: Save user info to backend
+      const userInfo = {
+        name,
+        email,
+        photo,
+        role: "user",
+        hasBioData: false,
+      };
+
+      const res = await axiosSecure.post("/users", userInfo);
+
+      if (res.data.insertedId || res.data.message === "User already exists") {
+        toast.success("Account created successfully!");
+        navigate("/");
+      } else {
+        throw new Error("Failed to save user data to backend");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error(err.message || "Registration failed!");
+    } finally {
       hideLoading();
-      toast.success("Account created successfully!");
-      // navigate('/dashboard') if needed
-    }, 2000);
+    }
   };
 
   return (
     <div className="relative min-h-screen bg-[#f6f4d2] flex flex-col lg:flex-row items-center justify-center px-4 py-10 overflow-hidden">
-      {/* Full Background Image Overlay */}
+      {/* Background image overlay */}
       <div
         className="absolute inset-0 z-0"
         style={{
@@ -112,9 +141,7 @@ const Register = () => {
               placeholder="you@example.com"
             />
             {errors.email && (
-              <p className="text-sm text-red-500 mt-1">
-                {errors.email.message}
-              </p>
+              <p className="text-sm text-red-500 mt-1">{errors.email.message}</p>
             )}
           </div>
 
@@ -125,7 +152,10 @@ const Register = () => {
               type="password"
               {...register("password", {
                 required: "Password is required",
-                minLength: 6,
+                minLength: {
+                  value: 6,
+                  message: "Password must be at least 6 characters",
+                },
               })}
               className="w-full px-4 py-2 border border-[#ccc] rounded-md focus:outline-none focus:ring-2 focus:ring-[#f19c79]"
               placeholder="••••••••"
@@ -139,9 +169,7 @@ const Register = () => {
 
           {/* Photo URL */}
           <div>
-            <label className="block text-sm font-semibold mb-1">
-              Photo URL
-            </label>
+            <label className="block text-sm font-semibold mb-1">Photo URL</label>
             <input
               type="url"
               {...register("photo", { required: "Photo URL is required" })}
@@ -166,7 +194,6 @@ const Register = () => {
           </motion.button>
         </form>
 
-        {/* Already Registered Link */}
         <p className="text-sm mt-4 text-center text-[#444]">
           Already have an account?{" "}
           <Link

@@ -8,7 +8,7 @@ import {
   updateProfile,
   onAuthStateChanged,
 } from "firebase/auth";
-import { auth } from "../firebase/firebase.config";
+import { auth } from "../firebase/firebase.init";
 import AuthContext from "../context/AuthContext";
 import { useLoading } from "../context/LoadingContext"; // ✅ import your loading context
 
