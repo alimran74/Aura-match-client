@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
 import { motion } from "framer-motion";
 import { LoadingProvider } from "../../context/LoadingContext";
+import { useNavigate } from "react-router";
+
 
 const divisions = [
   "Dhaka",
@@ -16,6 +18,7 @@ const divisions = [
 
 const Biodatas = () => {
   const axios = useAxios();
+  const navigate = useNavigate();
 
   // Filters
   const [ageRange, setAgeRange] = useState([10, 100]);
@@ -31,7 +34,6 @@ const Biodatas = () => {
       params.append("age_lte", ageRange[1]);
       if (biodataType) params.append("type", biodataType);
       if (division) params.append("division", division);
-      params.append("limit", 20);
 
       const res = await axios.get(`/biodatas?${params.toString()}`);
       return res.data;
@@ -107,7 +109,7 @@ const Biodatas = () => {
         </h2>
 
         {isLoading ? (
-          <LoadingProvider/>
+          <LoadingProvider />
         ) : biodatas.length === 0 ? (
           <p className="text-center text-gray-500">No biodatas found.</p>
         ) : (
@@ -141,9 +143,13 @@ const Biodatas = () => {
                   <p className="text-sm text-gray-600 mb-3">
                     Occupation: {biodata.occupation}
                   </p>
-                  <button className="bg-[#f19c79] text-white px-4 py-2 rounded hover:bg-[#e6855f] transition text-sm">
-                    View Profile
-                  </button>
+                  <button
+  onClick={() => navigate(`/biodata/${biodata._id}`)}
+  className="bg-[#f19c79] text-white px-4 py-2 rounded hover:bg-[#e6855f] transition text-sm"
+>
+  View Details
+</button>
+
                 </div>
               </motion.div>
             ))}

@@ -13,16 +13,17 @@ import Forbidden from "../Pages/Error/Forbidden";
 import CreateBiodata from "../Pages/Dashboard/CreateBiodata";
 import EditBiodata from "../Pages/Dashboard/EditBiodata";
 import MyBiodata from "../Pages/Dashboard/MyBiodata";
+import BiodataDetails from "../Pages/Biodatas/BiodataDetails";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: RootLayout,
-    errorElement: <Forbidden/>,
+    errorElement: <Forbidden />,
     children: [
       {
         index: true,
-        Component: Home,
+        element: <Home/>
       },
       {
         path: "about",
@@ -38,10 +39,14 @@ export const router = createBrowserRouter([
       },
       {
         path: "/biodatas",
-        element: 
-            <Biodatas />
-          
+        element: <Biodatas />,
       },
+      {
+        path: '/biodata/:id',
+        element: <PrivateRoute>
+          <BiodataDetails/>
+        </PrivateRoute>
+      }
     ],
   },
   {
@@ -50,11 +55,11 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "login",
-        Component: Login,
+        element: <Login/>
       },
       {
         path: "register",
-        Component: Register,
+        element: <Register/>
       },
     ],
   },
@@ -67,18 +72,17 @@ export const router = createBrowserRouter([
     ),
     children: [
       {
-        path: 'createbiodata',
-        element: <CreateBiodata/>
-
+        path: "createbiodata",
+        element: <CreateBiodata />,
       },
       {
-        path: 'editBiodata',
-        element: <EditBiodata/>
+        path: "editBiodata",
+        element: <EditBiodata />,
       },
       {
-        path:'myBiodata',
-        element: <MyBiodata/>
-      }
-    ]
+        path: "myBiodata",
+        element: <MyBiodata />,
+      },
+    ],
   },
 ]);
