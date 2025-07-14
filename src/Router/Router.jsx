@@ -12,6 +12,7 @@ import DashboardLayout from "../Layouts/DashboardLayout";
 import Forbidden from "../Pages/Error/Forbidden";
 import CreateBiodata from "../Pages/Dashboard/CreateBiodata";
 import EditBiodata from "../Pages/Dashboard/EditBiodata";
+import MyBiodata from "../Layouts/MyBiodata";
 
 export const router = createBrowserRouter([
   {
@@ -75,6 +76,10 @@ export const router = createBrowserRouter([
       {
         path: 'editBiodata',
         element: <EditBiodata/>
+      },
+      {
+        path:'myBiodata',
+        element: <MyBiodata/>
       }
     ]
   },

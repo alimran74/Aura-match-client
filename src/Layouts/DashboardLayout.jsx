@@ -17,7 +17,7 @@ const DashboardLayout = () => {
   const menuItems = [
     { name: "Dashboard Home", path: "/dashboard" },
     !hasBioData && { name: "Create Biodata", path: "/dashboard/createbiodata" },
-    { name: "My Biodata", path: "/dashboard/biodata" },
+    { name: "My Biodata", path: "/dashboard/myBiodata" },
     { name: "Edit Biodata", path: "/dashboard/editBiodata" },
   ].filter(Boolean);
 
