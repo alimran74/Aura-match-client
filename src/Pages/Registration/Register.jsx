@@ -20,7 +20,7 @@ const Register = () => {
   } = useForm();
 
   const { showLoading, hideLoading } = useLoading();
-  const axiosSecure = useAxios(); // or useAxiosSecure()
+  const axiosSecure = useAxios(); 
   const navigate = useNavigate();
   const { createUser, updateUserProfile } = useAuth();
 

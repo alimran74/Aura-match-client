@@ -1,7 +1,4 @@
-import {
-  createBrowserRouter,
-
-} from "react-router";
+import { createBrowserRouter } from "react-router";
 import RootLayout from "../Layouts/RootLayout";
 import Home from "../Pages/Home/Home";
 import About from "../Pages/About/About";
@@ -13,55 +10,72 @@ import PrivateRoute from "../routes/PrivateRoute";
 import Biodatas from "../Pages/Biodatas/Biodatas";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import Forbidden from "../Pages/Error/Forbidden";
+import CreateBiodata from "../Pages/Dashboard/CreateBiodata";
+import EditBiodata from "../Pages/Dashboard/EditBiodata";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: RootLayout,
+    errorElement: <Forbidden/>,
     children: [
-        {
-            index: true,
-            Component: Home,
-        },
-        {
-          path:'about',
-          element: <About/>
-        },
-        {
-          path: 'contact',
-          element: <Contact/>
-        }
-    ]
+      {
+        index: true,
+        Component: Home,
+      },
+      {
+        path: "about",
+        element: <About />,
+      },
+      {
+        path: "contact",
+        element: <Contact />,
+      },
+      {
+        path: "/forbidden",
+        element: <Forbidden />,
+      },
+      {
+        path: "/biodatas",
+        element: (
+          <PrivateRoute>
+            <Biodatas />
+          </PrivateRoute>
+        ),
+      },
+    ],
   },
   {
-    path: '/',
+    path: "/",
     Component: AuthLayout,
     children: [
       {
-        path: 'login',
+        path: "login",
         Component: Login,
       },
       {
-        path: 'register',
+        path: "register",
         Component: Register,
       },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
+    children: [
       {
-        path: '/biodatas',
-        element: <PrivateRoute>
-          <Biodatas/>
-        </PrivateRoute>
+        path: 'createbiodata',
+        element: <CreateBiodata/>
 
+      },
+      {
+        path: 'editBiodata',
+        element: <EditBiodata/>
       }
     ]
   },
-  {
-    path:'/dashboard',
-    element: <PrivateRoute>
-      <DashboardLayout/>
-    </PrivateRoute>
-  },
-  {
-    path: '/forbidden',
-    element: <Forbidden/>
-  }
 ]);
