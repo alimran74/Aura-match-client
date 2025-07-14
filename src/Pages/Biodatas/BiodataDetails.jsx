@@ -1,13 +1,11 @@
 import { useParams, useNavigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
-
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 
 const BiodataDetails = () => {
-    const axios = useAxios();
-
+  const axios = useAxios();
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -87,12 +85,11 @@ const BiodataDetails = () => {
     mobile,
     contactEmail,
   } = biodata;
- console.log("BiodataDetails - ID from URL:", id);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-10">
+    <div className="max-w-5xl mx-auto bg-[#f6f4d2] px-4 py-10">
       {/* Main Details */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white p-6 rounded-xl shadow-md">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-[#cbdfbd] p-6 rounded-xl shadow-md">
         <div className="flex flex-col items-center">
           <img
             src={profileImage}
@@ -125,16 +122,20 @@ const BiodataDetails = () => {
       </div>
 
       {/* Partner Expectations */}
-      <div className="mt-10 bg-[#fef6f0] p-6 rounded-xl shadow">
-        <h3 className="text-xl font-semibold mb-2 text-[#f19c79]">Partner Expectations</h3>
+      <div className="mt-10 bg-[#d4e09b] p-6 rounded-xl shadow">
+        <h3 className="text-xl font-semibold mb-2 text-[#f19c79]">
+          Partner Expectations
+        </h3>
         <p><strong>Expected Age:</strong> {expectedPartnerAge}</p>
         <p><strong>Expected Height:</strong> {expectedPartnerHeight}</p>
         <p><strong>Expected Weight:</strong> {expectedPartnerWeight}</p>
       </div>
 
       {/* Contact Info */}
-      <div className="mt-10 bg-[#edf2d7] p-6 rounded-xl shadow">
-        <h3 className="text-xl font-semibold mb-2 text-[#6c9a8b]">Contact Information</h3>
+      <div className="mt-10 bg-[#d4e09b] p-6 rounded-xl shadow">
+        <h3 className="text-xl font-semibold mb-2 text-[#f19c79]">
+          Contact Information
+        </h3>
         {isPremium ? (
           <>
             <p><strong>Email:</strong> {contactEmail}</p>
@@ -147,7 +148,7 @@ const BiodataDetails = () => {
             </p>
             <button
               onClick={() => navigate(`/checkout/contact/${biodata._id}`)}
-              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+              className="bg-[#f19c79] hover:bg-[#e6855f] text-white px-4 py-2 rounded"
             >
               Request Contact Info
             </button>
@@ -157,12 +158,14 @@ const BiodataDetails = () => {
 
       {/* Similar Biodatas */}
       <div className="mt-12">
-        <h3 className="text-2xl font-bold mb-4 text-[#f19c79]">Similar Biodatas</h3>
+        <h3 className="text-2xl font-bold mb-4 text-[#f19c79]">
+          Similar Biodatas
+        </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {similar.slice(0, 3).map((sim) => (
             <div
               key={sim._id}
-              className="bg-white p-4 rounded-xl shadow hover:shadow-md transition"
+              className="bg-[#cbdfbd] p-4 rounded-xl shadow hover:shadow-md transition"
             >
               <img
                 src={sim.profileImage}

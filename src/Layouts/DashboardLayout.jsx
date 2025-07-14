@@ -19,6 +19,7 @@ const DashboardLayout = () => {
     !hasBioData && { name: "Create Biodata", path: "/dashboard/createbiodata" },
     { name: "My Biodata", path: "/dashboard/myBiodata" },
     { name: "Edit Biodata", path: "/dashboard/editBiodata" },
+    { name: "Favorite Biodata", path: "/dashboard/favouriteBiodata" },
   ].filter(Boolean);
 
   return (
