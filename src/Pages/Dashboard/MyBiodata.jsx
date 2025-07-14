@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import useAuth from "../hooks/useAuth";
-import useAxios from "../hooks/useAxios";
+import useAuth from "../../hooks/useAuth";
+import useAxios from "../../hooks/useAxios";
 
 const MyBiodata = () => {
   const { user } = useAuth();

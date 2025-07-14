@@ -102,28 +102,83 @@ const DashboardLayout = () => {
             className="p-6"
           >
             {/* Welcome screen if on dashboard home */}
-            {location.pathname === "/dashboard" ? (
-              <div className="text-center py-12">
-                <motion.h2
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6 }}
-                  className="text-3xl font-bold text-[#f19c79] mb-4"
-                >
-                  Welcome to your Dashboard, {user?.displayName?.split(" ")[0]}!
-                </motion.h2>
-                <motion.p
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  className="text-gray-600"
-                >
-                  Here you can manage your biodata, profile, and more.
-                </motion.p>
-              </div>
-            ) : (
-              <Outlet />
-            )}
+{location.pathname === "/dashboard" ? (
+  <div className="min-h-[calc(100vh-80px)] flex flex-col items-center justify-center text-center bg-gradient-to-br from-[#cbdfbd] to-[#d4e09b] rounded-xl p-10 shadow-lg relative overflow-hidden">
+    
+    {/* Floating Emojis Background */}
+    <motion.div
+      initial={{ y: 0 }}
+      animate={{ y: [0, -20, 0] }}
+      transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+      className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none opacity-10 text-6xl flex justify-around items-center"
+    >
+      <span>💖</span>
+      <span>💍</span>
+      <span>👑</span>
+      <span>🎊</span>
+      <span>🌹</span>
+      <span>✨</span>
+    </motion.div>
+
+    {/* Content Layer */}
+    <div className="relative z-10 max-w-3xl">
+      <motion.h2
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6 }}
+        className="text-4xl md:text-5xl font-extrabold text-[#f19c79] mb-4"
+      >
+        Welcome, {user?.displayName?.split(" ")[0]}! 🎉
+      </motion.h2>
+
+      <motion.p
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="text-lg md:text-xl text-gray-700 mb-6"
+      >
+        This is your personalized space where magic begins. Whether you're just starting your journey,
+        ready to meet your match, or managing the entire platform – we’ve got something special for you. 🌟
+      </motion.p>
+
+      <motion.p
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+        className="italic text-[#444] mb-6"
+      >
+        “Every heart has a match. Let’s help you find yours.”
+      </motion.p>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.7 }}
+        className="text-3xl flex flex-wrap justify-center gap-4 mb-8"
+      >
+        <span>💑</span>
+        <span>🌟</span>
+        <span>💌</span>
+        <span>🎈</span>
+        <span>🕊️</span>
+        <span>💞</span>
+        <span>📸</span>
+      </motion.div>
+
+      {/* Optional GIF or Lottie animation */}
+      <div className="mt-4 flex justify-center">
+        
+        <h2 className="text-5xl font-extrabold bg-gradient-to-r from-pink-500 via-red-400 to-yellow-400 bg-clip-text text-transparent drop-shadow-lg animate-pulse">
+  Find Your Perfect Match
+</h2>
+      </div>
+    </div>
+  </div>
+) : (
+  <Outlet />
+)}
+
+
           </motion.div>
         </AnimatePresence>
       </div>

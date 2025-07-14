@@ -12,12 +12,13 @@ import { ToastContainer } from "react-toastify";
 const RootLayout = () => {
   return (
     <div >
-        <ToastContainer />
+        
       <Navbar />
 
       
       <div className="min-h-[calc(100vh-116px)]">
         <Outlet />
+        <ToastContainer position='top-center'/>
       </div>
 
       <Footer />

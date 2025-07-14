@@ -64,7 +64,7 @@ const EditBiodata = () => {
 
   return (
     <motion.div
-      className="max-w-4xl mx-auto p-6 bg-[#cbdfbd] rounded-xl shadow-xl mt-10"
+      className="max-w-4xl mx-auto p-6 bg-gradient-to-br from-[#cbdfbd] to-[#d4e09b] rounded-xl shadow-xl mt-10"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}

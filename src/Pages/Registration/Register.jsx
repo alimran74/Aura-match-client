@@ -20,7 +20,7 @@ const Register = () => {
   } = useForm();
 
   const { showLoading, hideLoading } = useLoading();
-  const axiosSecure = useAxios(); 
+  const axiosSecure = useAxios();
   const navigate = useNavigate();
   const { createUser, updateUserProfile } = useAuth();
 
@@ -53,9 +53,15 @@ const Register = () => {
       }
     } catch (err) {
       console.error(err);
-      toast.error(err.message || "Registration failed!");
-    } finally {
-      hideLoading();
+
+      let errorMessage = "Registration failed!";
+      if (err.code === "auth/email-already-in-use") {
+        errorMessage = "This email is already registered.";
+      } else if (err.code === "auth/weak-password") {
+        errorMessage = "Password is too weak. Must be at least 6 characters.";
+      }
+
+      toast.error(errorMessage);
     }
   };
 
@@ -141,7 +147,9 @@ const Register = () => {
               placeholder="you@example.com"
             />
             {errors.email && (
-              <p className="text-sm text-red-500 mt-1">{errors.email.message}</p>
+              <p className="text-sm text-red-500 mt-1">
+                {errors.email.message}
+              </p>
             )}
           </div>
 
@@ -169,7 +177,9 @@ const Register = () => {
 
           {/* Photo URL */}
           <div>
-            <label className="block text-sm font-semibold mb-1">Photo URL</label>
+            <label className="block text-sm font-semibold mb-1">
+              Photo URL
+            </label>
             <input
               type="url"
               {...register("photo", { required: "Photo URL is required" })}
