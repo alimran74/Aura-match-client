@@ -34,30 +34,33 @@ const BiodataDetails = () => {
     enabled: !!biodata?.biodataType,
   });
 
-  const handleAddToFavourites = async () => {
-    try {
-      const favourite = {
-        userEmail: user.email,
-        biodataId: biodata._id,
-        biodataType: biodata.biodataType,
-        name: biodata.name,
-        profileImage: biodata.profileImage,
-        permanentDivision: biodata.permanentDivision,
-        age: biodata.age,
-        occupation: biodata.occupation,
-      };
+ const handleAddToFavourites = async () => {
+  try {
+    const favourite = {
+      userEmail: user.email,
+      biodataId: biodata._id,
+      biodataType: biodata.biodataType,
+      name: biodata.name,
+      profileImage: biodata.profileImage,
+      permanentDivision: biodata.permanentDivision,
+      age: biodata.age,
+      occupation: biodata.occupation,
+    };
 
-      const res = await axios.post("/favourites", favourite);
-      if (res.data.insertedId) {
-        toast.success("Added to favourites!");
-      } else {
-        toast.error("Already in favourites.");
-      }
-    } catch (error) {
+    const res = await axios.post("/favourites", favourite);
+    if (res.data.insertedId) {
+      toast.success("Added to favourites!");
+    }
+  } catch (error) {
+    if (error.response && error.response.status === 409) {
+      toast.error("Already in favourites.");
+    } else {
       console.error(error);
       toast.error("Failed to add to favourites.");
     }
-  };
+  }
+};
+
 
   const isPremium = user?.role === "premium";
 
