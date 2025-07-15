@@ -6,6 +6,7 @@ import useAuth from "../../hooks/useAuth";
 import useAxios from "../../hooks/useAxios";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
+import { Import } from "lucide-react";
 
 const divisions = ["Dhaka", "Chitagong", "Rangpur", "Barisal", "Khulna", "Mymensingh", "Sylhet"];
 const heights = ["Below 5 feet", "5.0", "5.2", "5.4", "5.6", "5.8", "6.0", "6.2", "Above 6.2"];
@@ -13,6 +14,10 @@ const weights = ["Below 40kg", "40-50kg", "51-60kg", "61-70kg", "71-80kg", "81-9
 const occupations = ["Student", "Service", "Engineer", "Teacher", "Doctor", "Business", "Other"];
 const races = ["Fair", "Medium", "Dark", "Light Brown", "Tan"];
 const MySwal = withReactContent(Swal);
+
+// ✅ Replace with your actual imgbb API key
+const imgbbAPIKey = import.meta.env.VITE_IMAGE_API_KEY;
+
 
 const CreateBiodata = () => {
   const { user } = useAuth();
@@ -28,30 +33,46 @@ const CreateBiodata = () => {
     formState: { errors },
   } = useForm();
 
-
-
   const dob = watch("dob");
-  // Automatically calculate age when DOB changes
-useEffect(() => {
-  if (dob) {
-    const today = new Date();
-    const birthDate = new Date(dob);
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const monthDiff = today.getMonth() - birthDate.getMonth();
 
-    // Adjust age if birthday hasn't occurred yet this year
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
+  useEffect(() => {
+    if (dob) {
+      const today = new Date();
+      const birthDate = new Date(dob);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+
+      setValue("age", age);
     }
-
-    setValue("age", age); // set age in form state
-  }
-}, [dob, setValue]);
+  }, [dob, setValue]);
 
   const onSubmit = async (data) => {
     try {
+      const imageFile = data.profileImage[0];
+      const formData = new FormData();
+      formData.append("image", imageFile);
+
+      const imgbbRes = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbAPIKey}`, {
+        method: "POST",
+        body: formData,
+      });
+
+      const imgbbData = await imgbbRes.json();
+      
+
+      if (!imgbbData.success) {
+        throw new Error("Image upload failed");
+      }
+
       const biodata = {
         ...data,
+         age: Number(data.age),
+          expectedPartnerAge: Number(data.expectedPartnerAge),
+        profileImage: imgbbData.data.display_url,
         contactEmail: user?.email,
         createdAt: new Date(),
       };
@@ -94,7 +115,7 @@ useEffect(() => {
         {[
           ["Biodata Type", "biodataType", "select", ["Male", "Female"]],
           ["Name", "name"],
-          ["Profile Image URL", "profileImage"],
+          ["Profile Image", "profileImage", "file"],
           ["Date of Birth", "dob", "date"],
           ["Height", "height", "select", heights],
           ["Weight", "weight", "select", weights],
@@ -122,6 +143,13 @@ useEffect(() => {
                   <option key={option} value={option}>{option}</option>
                 ))}
               </select>
+            ) : type === "file" ? (
+              <input
+                type="file"
+                accept="image/*"
+                {...register(name, { required: true })}
+                className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#f19c79]"
+              />
             ) : (
               <input
                 type={type}
@@ -135,7 +163,6 @@ useEffect(() => {
           </div>
         ))}
 
-        {/* Contact Email */}
         <div className="flex flex-col">
           <label className="font-semibold mb-1">Contact Email</label>
           <input
@@ -146,7 +173,6 @@ useEffect(() => {
         </div>
       </form>
 
-      {/* Submit Button */}
       <div className="text-center mt-10">
         <motion.button
           onClick={handleSubmit(onSubmit)}
