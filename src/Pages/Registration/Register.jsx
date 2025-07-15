@@ -41,6 +41,8 @@ const Register = () => {
         photo,
         role: "user",
         hasBioData: false,
+        createdAt: new Date(),
+        lastLoggedIn: new Date(),
       };
 
       const res = await axiosSecure.post("/users", userInfo);

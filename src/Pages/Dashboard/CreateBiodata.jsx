@@ -6,7 +6,7 @@ import useAuth from "../../hooks/useAuth";
 import useAxios from "../../hooks/useAxios";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
-import { Import } from "lucide-react";
+
 
 const divisions = ["Dhaka", "Chitagong", "Rangpur", "Barisal", "Khulna", "Mymensingh", "Sylhet"];
 const heights = ["Below 5 feet", "5.0", "5.2", "5.4", "5.6", "5.8", "6.0", "6.2", "Above 6.2"];
@@ -88,10 +88,10 @@ const CreateBiodata = () => {
           text: "Redirecting to dashboard...",
           timer: 2000,
           showConfirmButton: false,
-        });
-
-        reset();
-        setTimeout(() => navigate("/dashboard"), 2000);
+        }).then(() =>{
+          reset();
+          navigate('/dashboard')
+        })
       }
     } catch (err) {
       console.error(err);
