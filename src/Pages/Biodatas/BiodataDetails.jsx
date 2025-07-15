@@ -87,14 +87,14 @@ const BiodataDetails = () => {
   } = biodata;
 
   return (
-    <div className="max-w-5xl mx-auto bg-[#f6f4d2] px-4 py-10">
+    <div className="px-6  mx-auto bg-[#f6f4d2]  py-10">
       {/* Main Details */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-[#cbdfbd] p-6 rounded-xl shadow-md">
         <div className="flex flex-col items-center">
           <img
             src={profileImage}
             alt={name}
-            className="w-60 h-60 object-cover rounded-xl shadow"
+            className="w-80 h-80 object-cover rounded-xl shadow"
           />
           <p className="mt-4 text-sm text-gray-600">Biodata ID: #{biodataId}</p>
           <button

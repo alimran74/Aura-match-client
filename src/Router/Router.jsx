@@ -15,6 +15,7 @@ import EditBiodata from "../Pages/Dashboard/EditBiodata";
 import MyBiodata from "../Pages/Dashboard/MyBiodata";
 import BiodataDetails from "../Pages/Biodatas/BiodataDetails";
 import MyFavourites from "../Pages/Dashboard/MyFavourites";
+import Checkout from "../Pages/checkout/Checkout"
 
 export const router = createBrowserRouter([
   {
@@ -47,7 +48,14 @@ export const router = createBrowserRouter([
         element: <PrivateRoute>
           <BiodataDetails/>
         </PrivateRoute>
+      },
+      {
+         path: "/checkout/contact/:id",
+      element: <PrivateRoute>
+          <Checkout/>
+      </PrivateRoute>
       }
+     
     ],
   },
   {
