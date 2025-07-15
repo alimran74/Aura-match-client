@@ -17,6 +17,7 @@ import BiodataDetails from "../Pages/Biodatas/BiodataDetails";
 import MyFavourites from "../Pages/Dashboard/MyFavourites";
 import Checkout from "../Pages/checkout/Checkout"
 import MyContactRequest from "../Pages/Dashboard/MyContactRequest";
+import AdminDashboard from "../Pages/Dashboard/AdminDashboard";
 
 export const router = createBrowserRouter([
   {
@@ -100,6 +101,10 @@ export const router = createBrowserRouter([
       {
         path: 'myContact-request',
         element: <MyContactRequest/>
+      },
+      {
+        path: 'adminDashboard',
+        element: <AdminDashboard/>
       }
     ],
   },

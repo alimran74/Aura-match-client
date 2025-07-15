@@ -1,14 +1,14 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
-import useAxios from "../../hooks/useAxios";
 import { toast } from "react-toastify";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate, useParams } from "react-router";
 import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const PaymentForm = () => {
-  const axios = useAxios();
+  const axios = useAxiosSecure();
   const stripe = useStripe();
   const elements = useElements();
   const { user } = useAuth();

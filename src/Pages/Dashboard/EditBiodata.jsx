@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
-import useAxios from "../../hooks/useAxios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const MySwal = withReactContent(Swal);
 
@@ -17,7 +17,7 @@ const races = ["Fair", "Medium", "Dark", "Light Brown", "Tan"];
 
 const EditBiodata = () => {
   const { user } = useAuth();
-  const axiosSecure = useAxios();
+  const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
 
   const {

@@ -3,9 +3,9 @@ import { motion } from "framer-motion";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import useAuth from "../../hooks/useAuth";
-import useAxios from "../../hooks/useAxios";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 
 const divisions = ["Dhaka", "Chitagong", "Rangpur", "Barisal", "Khulna", "Mymensingh", "Sylhet"];
@@ -21,7 +21,7 @@ const imgbbAPIKey = import.meta.env.VITE_IMAGE_API_KEY;
 
 const CreateBiodata = () => {
   const { user } = useAuth();
-  const axiosSecure = useAxios();
+  const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
 
   const {

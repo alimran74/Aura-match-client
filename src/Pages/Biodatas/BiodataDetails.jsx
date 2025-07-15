@@ -1,11 +1,12 @@
 import { useParams, useNavigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
-import useAxios from "../../hooks/useAxios";
+
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const BiodataDetails = () => {
-  const axios = useAxios();
+  const axios = useAxiosSecure();
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();

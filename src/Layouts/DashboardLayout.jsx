@@ -21,6 +21,7 @@ const DashboardLayout = () => {
     { name: "Edit Biodata", path: "/dashboard/editBiodata" },
     { name: "Favorite Biodata", path: "/dashboard/favouriteBiodata" },
     { name: "My Contact request", path: "/dashboard/myContact-request" },
+    { name: "Admin Dashboard", path: "/dashboard/adminDashboard" },
   ].filter(Boolean);
 
   return (
