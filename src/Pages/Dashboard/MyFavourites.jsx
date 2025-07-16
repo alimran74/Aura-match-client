@@ -2,9 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const MyFavourites = () => {
-  const axios = useAxios();
+  const axios = useAxiosSecure();
   const { user } = useAuth();
   const navigate = useNavigate();
 

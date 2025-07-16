@@ -75,6 +75,7 @@ const CreateBiodata = () => {
         profileImage: imgbbData.data.display_url,
         contactEmail: user?.email,
         createdAt: new Date(),
+        premiumStatus: "none",
       };
 
       const res = await axiosSecure.post("/biodatas", biodata);

@@ -18,6 +18,7 @@ import MyFavourites from "../Pages/Dashboard/MyFavourites";
 import Checkout from "../Pages/checkout/Checkout"
 import MyContactRequest from "../Pages/Dashboard/MyContactRequest";
 import AdminDashboard from "../Pages/Dashboard/AdminDashboard";
+import ContactRequest from "../Pages/Dashboard/ContactRequest";
 
 export const router = createBrowserRouter([
   {
@@ -105,6 +106,10 @@ export const router = createBrowserRouter([
       {
         path: 'adminDashboard',
         element: <AdminDashboard/>
+      },
+      {
+        path: 'approvedContactRequest',
+        element: <ContactRequest/>
       }
     ],
   },

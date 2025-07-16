@@ -38,9 +38,8 @@ const Login = () => {
         return;
       }
 
-      toast.success("Login successful!").then(() => {
-        navigate("/");
-      });
+      toast.success("Login successful!");
+      navigate("/");
     } catch (error) {
       console.error(error);
       toast.error("Please Register your account first ");
@@ -49,45 +48,44 @@ const Login = () => {
     }
   };
 
-const handleGoogleLogin = async () => {
-  try {
-    showLoading();
-    const result = await signInWithGoogle();
-    const user = result.user;
-
-    const userInfo = {
-      name: user.displayName,
-      email: user.email,
-      photo: user.photoURL,
-      role: "user",
-      hasBioData: false,
-      createdAt: new Date(),
-      lastLoggedIn: new Date(),
-    };
-
+  const handleGoogleLogin = async () => {
     try {
-      // Try to create a new user (will fail if already exists)
-      await axiosSecure.post("/users", userInfo);
-      toast.success("Account created successfully!");
-    } catch (error) {
-      if (error.response?.status === 409) {
-        // User already exists — update lastLoggedIn only
-        await axiosSecure.patch(`/users/last-logged-in/${user.email}`);
-        toast.info("Welcome back!");
-      } else {
-        throw error;
+      showLoading();
+      const result = await signInWithGoogle();
+      const user = result.user;
+
+      const userInfo = {
+        name: user.displayName,
+        email: user.email,
+        photo: user.photoURL,
+        role: "user",
+        hasBioData: false,
+        createdAt: new Date(),
+        lastLoggedIn: new Date(),
+      };
+
+      try {
+        // Try to create a new user (will fail if already exists)
+        await axiosSecure.post("/users", userInfo);
+        toast.success("Account created successfully!");
+      } catch (error) {
+        if (error.response?.status === 409) {
+          // User already exists — update lastLoggedIn only
+          await axiosSecure.patch(`/users/last-logged-in/${user.email}`);
+          toast.info("Welcome back!");
+        } else {
+          throw error;
+        }
       }
+
+      navigate("/");
+    } catch (err) {
+      console.error("Google login error:", err);
+      toast.error("Google sign-in failed!");
+    } finally {
+      hideLoading();
     }
-
-    navigate("/");
-  } catch (err) {
-    console.error("Google login error:", err);
-    toast.error("Google sign-in failed!");
-  } finally {
-    hideLoading();
-  }
-};
-
+  };
 
   return (
     <div className="relative min-h-screen bg-[#f6f4d2] flex flex-col lg:flex-row items-center justify-center px-4 py-10 overflow-hidden">

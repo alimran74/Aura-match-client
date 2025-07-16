@@ -4,9 +4,10 @@ import useAuth from "../../hooks/useAuth";
 import { FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
  import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const MyContactRequest = () => {
-  const axios = useAxios();
+  const axios = useAxiosSecure();
   const { user } = useAuth();
 
   const { data: requests = [], refetch } = useQuery({

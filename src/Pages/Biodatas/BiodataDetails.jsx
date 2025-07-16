@@ -1,9 +1,11 @@
 import { useParams, useNavigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
+import useUserProfile from "../../hooks/useUserProfile";
 
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+
 
 const BiodataDetails = () => {
   const axios = useAxiosSecure();
@@ -62,8 +64,12 @@ const BiodataDetails = () => {
   }
 };
 
+// if (isLoading || profileLoading) return <div className="text-center py-10"><Spinner/></div>;
 
-  const isPremium = user?.role === "premium";
+
+const { profile, isLoading: profileLoading } = useUserProfile();
+const isPremium = profile?.role === "premium";
+
 
   if (isLoading) return <div className="text-center py-10">Loading...</div>;
   if (!biodata) return <div className="text-center py-10">Biodata not found.</div>;

@@ -9,8 +9,9 @@ import bgCorner from "../../assets/bg1.png";
 import fullBg from "../../assets/full-bg.png";
 import AuraLogo from "../../components/AuraLogo/AuraLogo";
 import { useLoading } from "../../context/LoadingContext";
-import useAxios from "../../hooks/useAxios";
+// import useAxios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Register = () => {
   const {
@@ -20,7 +21,7 @@ const Register = () => {
   } = useForm();
 
   const { showLoading, hideLoading } = useLoading();
-  const axiosSecure = useAxios();
+  const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
   const { createUser, updateUserProfile } = useAuth();
 

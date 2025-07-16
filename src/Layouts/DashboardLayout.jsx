@@ -5,10 +5,14 @@ import { Link, NavLink, Outlet, useLocation } from "react-router";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import useAuth from "../hooks/useAuth";
+import useUserProfile from "../hooks/useUserProfile";
+
 import AuraLogo from "../components/AuraLogo/AuraLogo";
 
 const DashboardLayout = () => {
   const { user, logOut } = useAuth();
+  const { profile, isLoading } = useUserProfile();
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const location = useLocation();
 
@@ -22,6 +26,7 @@ const DashboardLayout = () => {
     { name: "Favorite Biodata", path: "/dashboard/favouriteBiodata" },
     { name: "My Contact request", path: "/dashboard/myContact-request" },
     { name: "Admin Dashboard", path: "/dashboard/adminDashboard" },
+    { name: "Approve Contact Request", path: "/dashboard/approvedContactRequest" },
   ].filter(Boolean);
 
   return (
@@ -47,8 +52,9 @@ const DashboardLayout = () => {
             />
             <h2 className="text-lg font-semibold">{user.displayName}</h2>
             <p className="text-sm text-gray-700 italic">
-              {user?.role || "User"}
-            </p>
+  {profile?.role || "User"}
+</p>
+
           </div>
         )}
 
