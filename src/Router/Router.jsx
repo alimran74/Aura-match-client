@@ -19,6 +19,10 @@ import Checkout from "../Pages/checkout/Checkout"
 import MyContactRequest from "../Pages/Dashboard/MyContactRequest";
 import AdminDashboard from "../Pages/Dashboard/AdminDashboard";
 import ContactRequest from "../Pages/Dashboard/ContactRequest";
+import ManageUser from "../Pages/Dashboard/ManageUsers";
+import ManageUsers from "../Pages/Dashboard/ManageUsers";
+import AdminRoute from "../routes/AdminRoute";
+import ApprovedPremium from "../Pages/Dashboard/ApprovedPremium";
 
 export const router = createBrowserRouter([
   {
@@ -105,12 +109,30 @@ export const router = createBrowserRouter([
       },
       {
         path: 'adminDashboard',
-        element: <AdminDashboard/>
+        element: <AdminRoute>
+          <AdminDashboard/>
+        </AdminRoute>
       },
       {
         path: 'approvedContactRequest',
-        element: <ContactRequest/>
+        element: <AdminRoute>
+          <ContactRequest/>
+        </AdminRoute>
+      },
+      {
+        path: 'manageUser',
+        element: <AdminRoute>
+          <ManageUsers/>
+        </AdminRoute>
+      },
+      {
+        path: 'ApprovePremium',
+        element: <AdminRoute>
+          <ApprovedPremium/>
+        </AdminRoute>
+
       }
+
     ],
   },
 ]);
