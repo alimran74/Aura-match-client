@@ -26,9 +26,10 @@ const DashboardLayout = () => {
 
     { name: "Admin Dashboard", path: "/dashboard/adminDashboard" },
     { name: "Admin State", path: "/dashboard/Admin/state" },
-    { name: "Approve Contact Request", path: "/dashboard/approvedContactRequest" },
     { name: "Manage Users", path: "/dashboard/manageUser" },
+    { name: "Approve Contact Request", path: "/dashboard/approvedContactRequest" },
     { name: "Approve Premium", path: "/dashboard/ApprovePremium" },
+    { name: "Success Story", path: "/dashboard/successStory" },
   ].filter(Boolean);
 
   return (

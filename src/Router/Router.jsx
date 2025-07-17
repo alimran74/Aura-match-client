@@ -25,7 +25,7 @@ import AdminRoute from "../routes/AdminRoute";
 import ApprovedPremium from "../Pages/Dashboard/ApprovedPremium";
 import GotMarried from "../Pages/Dashboard/GotMarried";
 import AdminState from "../Pages/Dashboard/AdminState";
-import SuccessStory from "../Pages/Dashboard/SuccessStory";
+import SuccessStory from "../Pages/Dashboard/successStory";
 
 export const router = createBrowserRouter([
   {
