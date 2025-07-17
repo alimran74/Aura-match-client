@@ -24,6 +24,8 @@ import ManageUsers from "../Pages/Dashboard/ManageUsers";
 import AdminRoute from "../routes/AdminRoute";
 import ApprovedPremium from "../Pages/Dashboard/ApprovedPremium";
 import GotMarried from "../Pages/Dashboard/GotMarried";
+import AdminState from "../Pages/Dashboard/AdminState";
+import SuccessStory from "../Pages/Dashboard/SuccessStory";
 
 export const router = createBrowserRouter([
   {
@@ -136,6 +138,18 @@ export const router = createBrowserRouter([
           <ApprovedPremium/>
         </AdminRoute>
 
+      },
+      {
+        path:'Admin/state',
+        element: <AdminRoute>
+          <AdminState/>
+        </AdminRoute>
+      },
+      {
+        path:'successStory',
+        element:<AdminRoute>
+          <SuccessStory/>
+        </AdminRoute>
       }
 
     ],
