@@ -13,9 +13,10 @@ const DashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const location = useLocation();
 
-  const hasBioData = user?.hasBioData;
+    const hasBioData = user?.hasBioData;
+  const role = profile?.role;
 
-  const menuItems = [
+  const userRoutes = [
     { name: "Dashboard Home", path: "/dashboard" },
     !hasBioData && { name: "Create Biodata", path: "/dashboard/createbiodata" },
     { name: "My Biodata", path: "/dashboard/myBiodata" },
@@ -23,14 +24,24 @@ const DashboardLayout = () => {
     { name: "Favorite Biodata", path: "/dashboard/favouriteBiodata" },
     { name: "My Contact request", path: "/dashboard/myContact-request" },
     { name: "My Success Story", path: "/dashboard/gotMarried" },
+  ].filter(Boolean);
 
+  const adminRoutes = [
     { name: "Admin Dashboard", path: "/dashboard/adminDashboard" },
     { name: "Admin State", path: "/dashboard/Admin/state" },
     { name: "Manage Users", path: "/dashboard/manageUser" },
     { name: "Approve Contact Request", path: "/dashboard/approvedContactRequest" },
     { name: "Approve Premium", path: "/dashboard/ApprovePremium" },
     { name: "Success Story", path: "/dashboard/successStory" },
-  ].filter(Boolean);
+  ];
+
+  const menuItems =
+    role === "admin"
+      ? adminRoutes
+      : role === "user" || role === "premium"
+      ? userRoutes
+      : [];
+
 
   return (
     <div className="flex min-h-screen bg-[#f6f4d2] text-[#222]  overflow-hidden relative">

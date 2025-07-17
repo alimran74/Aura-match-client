@@ -13,11 +13,11 @@ const Footer = () => {
           className="space-y-4 md:col-span-2"
         >
           <div className="flex items-center gap-3 text-3xl font-extrabold ">
-            <div className="scale-125"><AuraLogo /></div>
+            <div className="scale-125 px-4"><AuraLogo /></div>
            
           </div>
           <p className="text-sm text-[#333] leading-relaxed">
-            Find your life partner with ease and trust. AuraMatch combines traditional values with a modern platform to help you connect meaningfully and safely with compatible matches. We’re here to help you write your love story. 💞
+            Find your life partner with ease and trust. AuraMatch combines traditional values with a modern platform to help you connect meaningfully and safely with compatible matches. We're here to help you write your love story. 💞
           </p>
         </motion.div>
 

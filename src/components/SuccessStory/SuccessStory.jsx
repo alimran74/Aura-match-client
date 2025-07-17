@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
 import { FaStar } from "react-icons/fa";
 import { format } from "date-fns";
+import Spinner from "../Shared/Spinner";
 
 const SuccessStory = () => {
   const axiosPublic = useAxios();
@@ -28,10 +29,10 @@ const SuccessStory = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  if (isLoading) return <div className="text-center py-20">Loading...</div>;
+  if (isLoading) return <div className="text-center py-20"><Spinner/></div>;
 
   return (
-    <div className="px-8 mx-auto bg-[#f6f4d2] py-16">
+    <div className="px-8 mx-auto bg-[#f6f4d2] pb-16">
       <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 text-black">
         Marriage Success Stories 💍
       </h2>
@@ -42,7 +43,7 @@ const SuccessStory = () => {
           return (
             <div
               key={story._id}
-              className="bg-[#cbdfbd] shadow-md rounded-2xl overflow-hidden border hover:shadow-xl transition"
+              className="bg-[#cbdfbd] shadow-md rounded-2xl overflow-hidden  hover:shadow-xl transition"
             >
               <img src={story.image} alt="Wedding" className="w-full h-56 object-cover" />
               <div className="p-5">
@@ -53,7 +54,7 @@ const SuccessStory = () => {
                 {isLong && (
                   <button
                     onClick={() => setSelectedStory(story)}
-                    className="bg-[#f19c79] hover:bg-[#e88c68] transition-all text-white px-4 py-2 rounded-md w-full"
+                    className="bg-[#f19c79] hover:bg-[#e88c68] transition-all text-white px-4 py-2 rounded-md mb-2"
                   >
                     Read Full Story
                   </button>
@@ -79,7 +80,7 @@ const SuccessStory = () => {
         <div className="fixed px-8 inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div
             ref={modalRef}
-            className="bg-white max-w-lg w-full rounded-xl p-6 relative shadow-lg"
+            className="bg-[#cbdfbd] max-w-lg w-full rounded-xl p-6 relative shadow-lg"
           >
             {/* Modern Close Button */}
             <button

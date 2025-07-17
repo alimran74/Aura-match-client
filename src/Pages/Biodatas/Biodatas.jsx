@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { LoadingProvider } from "../../context/LoadingContext";
 import { useNavigate } from "react-router";
 
-
 const divisions = [
   "Dhaka",
   "Chattagra",
@@ -25,13 +24,19 @@ const Biodatas = () => {
   const [biodataType, setBiodataType] = useState("");
   const [division, setDivision] = useState("");
 
-  // Query using TanStack Query
-  const { data: biodatas = [], isLoading } = useQuery({
-    queryKey: ["biodatas", ageRange, biodataType, division],
+  // Pagination
+  const [page, setPage] = useState(1);
+  const limit = 10;
+
+  // Query
+  const { data: response = {}, isLoading } = useQuery({
+    queryKey: ["biodatas", ageRange, biodataType, division, page],
     queryFn: async () => {
       const params = new URLSearchParams();
       params.append("age_gte", ageRange[0]);
       params.append("age_lte", ageRange[1]);
+      params.append("limit", limit);
+      params.append("page", page);
       if (biodataType) params.append("type", biodataType);
       if (division) params.append("division", division);
 
@@ -39,6 +44,9 @@ const Biodatas = () => {
       return res.data;
     },
   });
+
+  const { data: biodatas = [], total = 0 } = response;
+  const totalPages = Math.ceil(total / limit);
 
   return (
     <div className="min-h-screen bg-[#f6f4d2] text-[#333] p-6 md:p-10 grid grid-cols-1 lg:grid-cols-4 gap-6">
@@ -113,47 +121,65 @@ const Biodatas = () => {
         ) : biodatas.length === 0 ? (
           <p className="text-center text-gray-500">No biodatas found.</p>
         ) : (
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-            {biodatas.map((biodata) => (
-              <motion.div
-                key={biodata._id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="bg-[#cbdfbd] rounded-xl shadow-md overflow-hidden hover:shadow-lg transition"
-              >
-                <img
-                  src={biodata.profileImage}
-                  alt={biodata.name}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-4">
-                  <h3 className="text-xl font-semibold mb-1 text-[#444]">
-                    {biodata.name} ({biodata.biodataType})
-                  </h3>
-                  <p className="text-sm text-gray-600 mb-1">
-                    Biodata ID: {biodata.biodataId}
-                  </p>
-                  <p className="text-sm text-gray-600 mb-1">
-                    Division: {biodata.permanentDivision}
-                  </p>
-                  <p className="text-sm text-gray-600 mb-1">
-                    Age: {biodata.age}
-                  </p>
-                  <p className="text-sm text-gray-600 mb-3">
-                    Occupation: {biodata.occupation}
-                  </p>
-                  <button
-  onClick={() => navigate(`/biodata/${biodata._id}`)}
-  className="bg-[#f19c79] text-white px-4 py-2 rounded hover:bg-[#e6855f] transition text-sm"
->
-  View Details
-</button>
+          <>
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+              {biodatas.map((biodata) => (
+                <motion.div
+                  key={biodata._id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="bg-[#cbdfbd] rounded-xl shadow-md overflow-hidden hover:shadow-lg transition"
+                >
+                  <img
+                    src={biodata.profileImage}
+                    alt={biodata.name}
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="p-4">
+                    <h3 className="text-xl font-semibold mb-1 text-[#444]">
+                      {biodata.name} ({biodata.biodataType})
+                    </h3>
+                    <p className="text-sm text-gray-600">
+                      Biodata ID: {biodata.biodataId}
+                    </p>
+                    <p className="text-sm text-gray-600">
+                      Division: {biodata.permanentDivision}
+                    </p>
+                    <p className="text-sm text-gray-600">
+                      Age: {biodata.age}
+                    </p>
+                    <p className="text-sm text-gray-600 mb-3">
+                      Occupation: {biodata.occupation}
+                    </p>
+                    <button
+                      onClick={() => navigate(`/biodata/${biodata._id}`)}
+                      className="bg-[#f19c79] text-white px-4 py-2 rounded hover:bg-[#e6855f] transition text-sm"
+                    >
+                      View Details
+                    </button>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
 
-                </div>
-              </motion.div>
-            ))}
-          </div>
+            {/* Pagination Controls */}
+            <div className="mt-8 flex justify-center gap-2 flex-wrap">
+              {Array.from({ length: totalPages }, (_, i) => (
+                <button
+                  key={i + 1}
+                  onClick={() => setPage(i + 1)}
+                  className={`px-4 py-2 rounded border ${
+                    page === i + 1
+                      ? "bg-[#f19c79] text-white"
+                      : "bg-white text-[#444]"
+                  } hover:bg-[#f19c79] hover:text-white transition`}
+                >
+                  {i + 1}
+                </button>
+              ))}
+            </div>
+          </>
         )}
       </div>
     </div>
