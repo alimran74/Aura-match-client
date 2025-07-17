@@ -23,6 +23,7 @@ import ManageUser from "../Pages/Dashboard/ManageUsers";
 import ManageUsers from "../Pages/Dashboard/ManageUsers";
 import AdminRoute from "../routes/AdminRoute";
 import ApprovedPremium from "../Pages/Dashboard/ApprovedPremium";
+import GotMarried from "../Pages/Dashboard/GotMarried";
 
 export const router = createBrowserRouter([
   {
@@ -102,6 +103,10 @@ export const router = createBrowserRouter([
       {
         path: "favouriteBiodata",
         element: <MyFavourites/>
+      },
+      {
+        path:'gotMarried',
+        element: <GotMarried/>
       },
       {
         path: 'myContact-request',

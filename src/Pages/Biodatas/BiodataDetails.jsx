@@ -5,6 +5,7 @@ import useUserProfile from "../../hooks/useUserProfile";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Spinner from "../../components/Shared/Spinner";
 
 
 const BiodataDetails = () => {
@@ -71,7 +72,7 @@ const { profile, isLoading: profileLoading } = useUserProfile();
 const isPremium = profile?.role === "premium";
 
 
-  if (isLoading) return <div className="text-center py-10">Loading...</div>;
+  if (isLoading) return <div className="text-center py-10"><Spinner/></div>;
   if (!biodata) return <div className="text-center py-10">Biodata not found.</div>;
 
   const {
