@@ -124,6 +124,7 @@ To explore the admin dashboard features:
 git clone https://github.com/alimran74/aura-match-client.git
 cd aura-match-client
 npm install
+```
 
 2. **Create .env file in root directory**
 
@@ -141,8 +142,8 @@ VITE_FIREBASE_APP_ID=your_app_id
 
 Run the development server
 
-```bash
 
+bash
 npm run dev
 
 ----
@@ -170,7 +171,7 @@ Here are some pages available:
 ----
 
 
-🔗 Useful Links
+## 🔗 Useful Links
 🔥 Firebase Docs: firebase.google.com
 
 💳 Stripe Docs: stripe.com/docs
@@ -182,19 +183,19 @@ Here are some pages available:
 📬 Contact
 Feel free to connect and follow my work:
 
-👨‍💻 Al Imran
+## 👨‍💻 Al Imran
 
-🌐 LinkedIn
+
 
 📧 alimrandev.1@gmail.com
 
 
 
-❤️ Special Thanks
-Thanks to the Programming Hero web development curriculum and mentors for guidance and inspiration throughout the project!
+**❤️ Special Thanks**
+Thanks to the Programming Hero web development curriculum and mentors for guidance and inspiration throughout the project! **
 
 
-🔒 Built with passion, powered by React, and deployed with love! 
+**🔒 Built with passion, powered by React, and deployed with love!* 
 
-develop by AL IMRAN with ❤️
+# develop by AL IMRAN with ❤️
 
