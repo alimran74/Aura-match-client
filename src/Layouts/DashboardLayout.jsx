@@ -8,12 +8,11 @@ import AuraLogo from "../components/AuraLogo/AuraLogo";
 
 const DashboardLayout = () => {
   const { user, logOut } = useAuth();
-  const { profile, isLoading } = useUserProfile();
-
+  const { profile } = useUserProfile();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const location = useLocation();
 
-    const hasBioData = user?.hasBioData;
+  const hasBioData = profile?.hasBioData;
   const role = profile?.role;
 
   const userRoutes = [
@@ -42,19 +41,19 @@ const DashboardLayout = () => {
       ? userRoutes
       : [];
 
-
   return (
-    <div className="flex min-h-screen bg-[#f6f4d2] text-[#222]  overflow-hidden relative">
-      {/* Sidebar */}
+    <div className="flex min-h-screen bg-[#f6f4d2] text-[#222] relative">
+      {/* Sidebar - Sticky in Desktop */}
       <div
-  className={`
-    fixed top-0 left-0 z-40 h-full bg-[#d4e09b] p-4 shadow-lg
-    overflow-y-auto
-    transition-transform duration-300 ease-in-out
-    ${isSidebarOpen ? "translate-x-0 w-64" : "-translate-x-full"}
-    md:translate-x-0 md:relative md:w-64 md:mt-12 md:overflow-y-auto
-  `}
->
+        className={`
+          bg-[#d4e09b] shadow-lg z-40 p-4
+          md:sticky md:top-0 md:h-screen
+          fixed top-0 left-0 h-full
+          transition-transform duration-300 ease-in-out
+          ${isSidebarOpen ? "translate-x-0 w-64" : "-translate-x-full"}
+          md:translate-x-0 md:w-64
+        `}
+      >
         <div className="mb-8 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 text-2xl font-bold">
             <AuraLogo />
@@ -102,6 +101,11 @@ const DashboardLayout = () => {
           >
             Logout
           </button>
+          <Link to="/">
+            <button className="bg-white text-black hover:bg-[#f19c79]/80 hover:text-white w-full px-4 py-2 rounded-lg">
+              Go to 🏠
+            </button>
+          </Link>
         </nav>
       </div>
 
@@ -110,23 +114,25 @@ const DashboardLayout = () => {
         <div
           className="fixed inset-0 bg-black bg-opacity-30 z-30 md:hidden"
           onClick={() => setIsSidebarOpen(false)}
-        ></div>
+        />
       )}
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col overflow-x-hidden">
-        {/* Mobile Topbar */}
-        <div className="md:hidden sticky top-0 z-20 flex items-center justify-between bg-[#d4e09b] p-4 shadow-md">
-          <button onClick={() => setIsSidebarOpen(true)}>
-            <Menu size={24} />
-          </button>
-          <h1 className="text-xl font-semibold">Dashboard</h1>
-          <img
-            src={user?.photoURL}
-            alt="User"
-            className="w-8 h-8 rounded-full border-2 border-[#f19c79]"
-            title={user?.displayName}
-          />
+      <div className="flex-1 flex flex-col ">
+        {/* Sticky Topbar (Mobile only) */}
+        <div className="sticky top-0 z-50 bg-[#d4e09b] shadow-md md:hidden">
+          <div className="flex items-center justify-between p-4">
+            <button onClick={() => setIsSidebarOpen(true)}>
+              <Menu size={24} />
+            </button>
+            <h1 className="text-xl font-semibold">Dashboard</h1>
+            <img
+              src={user?.photoURL}
+              alt="User"
+              className="w-8 h-8 rounded-full border-2 border-[#f19c79]"
+              title={user?.displayName}
+            />
+          </div>
         </div>
 
         {/* Page Content */}
@@ -137,7 +143,7 @@ const DashboardLayout = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.4 }}
-            className="p-4 sm:p-6 md:p-8"
+            className="p-4 sm:p-6 md:p-8 overflow-y-auto"
           >
             {location.pathname === "/dashboard" ? (
               <div className="min-h-[calc(100vh-80px)] flex flex-col items-center justify-center text-center bg-gradient-to-br from-[#cbdfbd] to-[#d4e09b] rounded-xl p-10 shadow-lg relative overflow-hidden">
@@ -175,9 +181,7 @@ const DashboardLayout = () => {
                     transition={{ duration: 0.6, delay: 0.2 }}
                     className="text-lg md:text-xl text-gray-700 mb-6"
                   >
-                    This is your personalized space where magic begins. Whether
-                    you're just starting your journey or managing the platform –
-                    we’ve got something special for you. 🌟
+                    This is your personalized space where magic begins.
                   </motion.p>
                   <motion.p
                     initial={{ opacity: 0, y: 10 }}
@@ -201,7 +205,7 @@ const DashboardLayout = () => {
                     <span>💞</span>
                     <span>📸</span>
                   </motion.div>
-                  <div className="mt-4 flex justify-center">
+                  <div className="flex-1 space-y-6">
                     <h2 className="text-5xl font-extrabold bg-gradient-to-r from-pink-500 via-red-400 to-yellow-400 bg-clip-text text-transparent drop-shadow-lg animate-pulse">
                       Find Your Perfect Match
                     </h2>

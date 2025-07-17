@@ -4,9 +4,8 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-
 
 const divisions = ["Dhaka", "Chitagong", "Rangpur", "Barisal", "Khulna", "Mymensingh", "Sylhet"];
 const heights = ["Below 5 feet", "5.0", "5.2", "5.4", "5.6", "5.8", "6.0", "6.2", "Above 6.2"];
@@ -15,14 +14,13 @@ const occupations = ["Student", "Service", "Engineer", "Teacher", "Doctor", "Bus
 const races = ["Fair", "Medium", "Dark", "Light Brown", "Tan"];
 const MySwal = withReactContent(Swal);
 
-// ✅ Replace with your actual imgbb API key
 const imgbbAPIKey = import.meta.env.VITE_IMAGE_API_KEY;
-
 
 const CreateBiodata = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -51,6 +49,7 @@ const CreateBiodata = () => {
   }, [dob, setValue]);
 
   const onSubmit = async (data) => {
+    setLoading(true);
     try {
       const imageFile = data.profileImage[0];
       const formData = new FormData();
@@ -62,16 +61,13 @@ const CreateBiodata = () => {
       });
 
       const imgbbData = await imgbbRes.json();
-      
 
-      if (!imgbbData.success) {
-        throw new Error("Image upload failed");
-      }
+      if (!imgbbData.success) throw new Error("Image upload failed");
 
       const biodata = {
         ...data,
-         age: Number(data.age),
-          expectedPartnerAge: Number(data.expectedPartnerAge),
+        age: Number(data.age),
+        expectedPartnerAge: Number(data.expectedPartnerAge),
         profileImage: imgbbData.data.display_url,
         contactEmail: user?.email,
         createdAt: new Date(),
@@ -83,16 +79,16 @@ const CreateBiodata = () => {
       if (res.data.insertedId) {
         await axiosSecure.patch(`/users/biodata-status/${user.email}`, { hasBioData: true });
 
-        MySwal.fire({
+        await MySwal.fire({
           icon: "success",
           title: "Biodata Created!",
           text: "Redirecting to dashboard...",
           timer: 2000,
           showConfirmButton: false,
-        }).then(() =>{
-          reset();
-          navigate('/dashboard')
-        })
+        });
+
+        reset();
+        navigate("/dashboard");
       }
     } catch (err) {
       console.error(err);
@@ -101,14 +97,17 @@ const CreateBiodata = () => {
         title: "Oops...",
         text: "Failed to create biodata.",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="max-w-5xl mx-auto p-8 bg-gradient-to-br from-[#cbdfbd] to-[#d4e09b] rounded-3xl shadow-2xl mt-12">
       <h2 className="text-4xl font-extrabold text-center text-[#f19c79] mb-10 animate-pulse">
-        ✨ Create Your Beautiful Biodata ✨
+        ✨ Create Your Beautiful Biodata
       </h2>
+
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="grid grid-cols-1 md:grid-cols-2 gap-6"
@@ -164,7 +163,7 @@ const CreateBiodata = () => {
           </div>
         ))}
 
-        <div className="flex flex-col">
+        <div className="flex flex-col md:col-span-2">
           <label className="font-semibold mb-1">Contact Email</label>
           <input
             value={user?.email}
@@ -172,18 +171,21 @@ const CreateBiodata = () => {
             className="px-4 py-2 border rounded-md bg-gray-200 cursor-not-allowed"
           />
         </div>
-      </form>
 
-      <div className="text-center mt-10">
-        <motion.button
-          onClick={handleSubmit(onSubmit)}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="bg-[#f19c79] text-white px-8 py-3 rounded-xl shadow-lg hover:bg-[#e6855f] transition font-bold text-lg"
-        >
-          Save & Publish Now
-        </motion.button>
-      </div>
+        <div className="text-center md:col-span-2 mt-4">
+          <motion.button
+            type="submit"
+            whileHover={{ scale: !loading ? 1.05 : 1 }}
+            whileTap={{ scale: 0.95 }}
+            disabled={loading}
+            className={`${
+              loading ? "bg-gray-400 cursor-not-allowed" : "bg-[#f19c79] hover:bg-[#e6855f]"
+            } text-white px-8 py-3 rounded-xl shadow-lg transition font-bold text-lg`}
+          >
+            {loading ? "Saving..." : "Save & Publish Now"}
+          </motion.button>
+        </div>
+      </form>
     </div>
   );
 };

@@ -1,10 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
-import useAxios from "../../hooks/useAxios";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { motion } from "framer-motion";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Spinner from "../../components/Shared/Spinner";
 
 const MySwal = withReactContent(Swal);
@@ -62,33 +61,37 @@ const MyBiodata = () => {
 
   if (isLoading) {
     return (
-      <div className="text-center py-10 font-semibold text-[#f19c79]">
+      <div className="flex justify-center items-center h-64">
         <Spinner />
       </div>
     );
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-gradient-to-br from-[#cbdfbd] to-[#d4e09b] rounded-3xl shadow-2xl mt-12">
-      <h2 className="text-4xl font-extrabold text-center text-[#f19c79] mb-10">
+    <div className="max-w-5xl mx-auto my-12 p-6 bg-[#cbdfbd] rounded-3xl shadow-xl border border-gray-200">
+      <h2 className="text-4xl font-extrabold text-center text-rose-600 mb-12">
         🌟 My Biodata 🌟
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-700">
-        <div className="md:col-span-2 text-center">
+      {/* Profile Section */}
+      <div className="flex flex-col md:flex-row items-center md:items-start gap-8 mb-10">
+        <div className="flex-shrink-0">
           <img
             src={biodata.profileImage}
             alt="Profile"
-            className="w-40 h-40 rounded-full mx-auto object-cover border-4 border-[#f19c79]"
+            className="w-full h-40 rounded-xl border-1 border-rose-300 object-cover shadow-lg"
           />
-          <h3 className="text-2xl mt-4 font-bold text-[#222]">
-            {biodata.name}
-          </h3>
-          <p className="text-sm text-gray-600">
-            Biodata Type: {biodata.biodataType}
+        </div>
+        <div className="text-center md:text-left">
+          <h3 className="text-3xl font-bold text-gray-900">{biodata.name}</h3>
+          <p className="text-md text-gray-500 mt-1 font-semibold">
+            Biodata Type: <span className="text-rose-600">{biodata.biodataType}</span>
           </p>
         </div>
+      </div>
 
+      {/* Info Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 text-gray-700">
         <Info label="Date of Birth" value={biodata.dob} />
         <Info label="Age" value={biodata.age} />
         <Info label="Height" value={biodata.height} />
@@ -99,47 +102,45 @@ const MyBiodata = () => {
         <Info label="Mother's Name" value={biodata.motherName} />
         <Info label="Permanent Division" value={biodata.permanentDivision} />
         <Info label="Present Division" value={biodata.presentDivision} />
+      </div>
 
-        <div className="md:col-span-2">
-          <h4 className="text-xl font-bold text-[#f19c79] mb-2">
-            🧡 Partner Expectations
-          </h4>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Info label="Expected Age" value={biodata.expectedPartnerAge} />
-            <Info
-              label="Expected Height"
-              value={biodata.expectedPartnerHeight}
-            />
-            <Info
-              label="Expected Weight"
-              value={biodata.expectedPartnerWeight}
-            />
-          </div>
+      {/* Partner Expectations */}
+      <div className="mt-14 p-6 bg-[#d4e09b] rounded-xl border border-rose-200 shadow-inner">
+        <h4 className="text-2xl font-semibold text-rose-700 text-center mb-6 flex items-center gap-2">
+          🧡 Partner Expectations
+        </h4>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-gray-800">
+          <Info label="Expected Age" value={biodata.expectedPartnerAge} />
+          <Info label="Expected Height" value={biodata.expectedPartnerHeight} />
+          <Info label="Expected Weight" value={biodata.expectedPartnerWeight} />
         </div>
+      </div>
 
+      {/* Contact Info */}
+      <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 gap-8 text-gray-700">
         <Info label="Mobile Number" value={biodata.mobile} />
         <Info label="Email" value={biodata.contactEmail} />
       </div>
 
-      {/* Premium Section */}
-      <div className="mt-10 text-center">
+      {/* Premium Request */}
+      <div className="mt-12  text-center">
         {biodata.premiumStatus === "none" && (
           <motion.button
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             onClick={handlePremiumRequest}
-            className="bg-[#f19c79] text-white px-6 py-2 rounded-lg shadow hover:bg-[#e6855f] font-semibold"
+            className="inline-block bg-[#d4e09b] text-black px-8 py-3 rounded-full shadow-lg font-semibold tracking-wide hover:bg-[#a5b169] transition"
           >
             Make Biodata Premium
           </motion.button>
         )}
         {biodata.premiumStatus === "pending" && (
-          <p className="text-[#f19c79] font-medium">
+          <p className="text-rose-600 font-semibold text-lg">
             ⏳ Your request for premium is pending admin approval.
           </p>
         )}
         {biodata.premiumStatus === "approved" && (
-          <p className="text-green-600 font-medium">
+          <p className="text-green-600 font-semibold text-lg">
             🎉 Your biodata is now premium!
           </p>
         )}
@@ -148,11 +149,10 @@ const MyBiodata = () => {
   );
 };
 
-// Small reusable component
 const Info = ({ label, value }) => (
-  <div>
-    <p className="text-sm text-gray-500">{label}</p>
-    <p className="text-base font-semibold">{value || "N/A"}</p>
+  <div className="bg-[#f19c79]/80 p-4 rounded-xl shadow-sm border border-[#f19c79]">
+    <p className="text-sm text-gray-700 text-center uppercase tracking-wide">{label}</p>
+    <p className="mt-1 text-lg text-center font-medium text-gray-900">{value || "N/A"}</p>
   </div>
 );
 

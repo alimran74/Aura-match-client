@@ -44,7 +44,7 @@ const steps = [
 
 const HowItsWorks = () => {
   return (
-    <section className="bg-[#f6f4d2] py-14 px-4">
+    <section className="bg-[#f6f4d2] pb-14 pt-12 px-4">
       <div className=" px-4 mx-auto text-center">
         {/* Section Header */}
         <motion.div
