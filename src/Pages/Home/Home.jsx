@@ -8,6 +8,7 @@ import PremiumBiodata from '../../components/PremiumBiodata/PremiumBiodata';
 import MatchingQuiz from '../../components/MatchingQuiz/MatchingQuiz';
 import BenefitsSection from '../../components/Benefits/BenefitsSection';
 import HeroSection from '../../components/HeroSection/HeroSection';
+import FAQSection from '../../components/FAQSection/FAQSection';
 
 
 const Home = () => {
@@ -20,6 +21,7 @@ const Home = () => {
             <SuccessStory/>
             <BenefitsSection/>
             <SuccessCounter/>
+            <FAQSection/>
             <HeroSection/>
             
             
