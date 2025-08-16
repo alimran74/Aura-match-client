@@ -11,14 +11,16 @@ const PremiumBiodata = () => {
   const { data: premiumBiodatas = [], isLoading } = useQuery({
     queryKey: ["premium-biodatas"],
     queryFn: async () => {
-      const res = await axios.get("/biodatas-premium?premiumStatus=approved&limit=6");
+      const res = await axios.get(
+        "/biodatas-premium?premiumStatus=approved&limit=8"
+      );
       return res.data;
     },
   });
 
   return (
-    <section className="pt-20 pb-12 px-6 bg-[#f6f4d2] min-h-[60vh]">
-      <h2 className="text-3xl font-bold text-black text-center mb-8">
+    <section className="pt-20 pb-12 px-6 bg-gradient-to-br from-[#f6f4d2] via-[#e8f5e9] to-[#f6f4d2] min-h-[60vh]">
+      <h2 className="text-3xl font-bold text-[#222] text-center mb-12">
         Premium Biodata ✨
       </h2>
 
@@ -27,42 +29,56 @@ const PremiumBiodata = () => {
       ) : premiumBiodatas.length === 0 ? (
         <p className="text-center text-gray-600">No premium biodatas found.</p>
       ) : (
-        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          {premiumBiodatas.slice(0, 6).map((biodata) => (
+        <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+          {premiumBiodatas.slice(0, 8).map((biodata) => (
             <motion.div
               key={biodata._id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              className="bg-[#cbdfbd] rounded-xl shadow-md overflow-hidden hover:shadow-lg transition"
+              transition={{ duration: 0.5 }}
+              whileHover={{ scale: 1.05, rotateX: 2, rotateY: 2 }}
+              className="relative group bg-white/10 backdrop-blur-lg border border-white/30 rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-[0_0_25px_rgba(241,156,121,0.6)]"
             >
-              <img
-                src={biodata.profileImage}
-                alt={biodata.name}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-4">
-                <h3 className="text-xl font-semibold text-[#444] mb-1">
-                  {biodata.name} ({biodata.biodataType})
-                </h3>
-                <p className="text-sm text-gray-600">
-                  Biodata ID: {biodata.biodataId}
-                </p>
-                <p className="text-sm text-gray-600">
-                  Division: {biodata.permanentDivision}
-                </p>
-                <p className="text-sm text-gray-600">
-                  Age: {biodata.age}
-                </p>
-                <p className="text-sm text-gray-600 mb-3">
-                  Occupation: {biodata.occupation}
-                </p>
-                <button
-                  onClick={() => navigate(`/biodata/${biodata._id}`)}
-                  className="bg-[#f19c79] text-white px-4 py-2 rounded hover:bg-[#e6855f] transition text-sm"
-                >
-                  View Details
-                </button>
+              {/* Gradient border glow */}
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#f19c79] via-[#f6bd60] to-[#cbdfbd] opacity-30 group-hover:opacity-50 transition duration-500 blur-xl"></div>
+
+              {/* Content */}
+              <div className="relative z-10">
+                <img
+                  src={biodata.profileImage}
+                  alt={biodata.name}
+                  className="w-full h-52 object-cover rounded-t-2xl"
+                />
+                <div className="p-5">
+                  <h3 className="text-lg font-bold text-gray-900 mb-1">
+                    {biodata.name}{" "}
+                    <span className="text-sm text-[#f19c79] font-medium">
+                      ({biodata.biodataType})
+                    </span>
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    <span className="font-semibold">ID:</span>{" "}
+                    {biodata.biodataId}
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    <span className="font-semibold">Division:</span>{" "}
+                    {biodata.permanentDivision}
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    <span className="font-semibold">Age:</span> {biodata.age}
+                  </p>
+                  <p className="text-sm text-gray-600 mb-4">
+                    <span className="font-semibold">Occupation:</span>{" "}
+                    {biodata.occupation}
+                  </p>
+
+                  <button
+                    onClick={() => navigate(`/biodata/${biodata._id}`)}
+                    className="w-full bg-gradient-to-r from-[#f19c79] to-[#f6bd60] text-white font-semibold py-2 rounded-xl shadow-md hover:shadow-lg hover:scale-[1.02] transition-all duration-300"
+                  >
+                    View Details
+                  </button>
+                </div>
               </div>
             </motion.div>
           ))}

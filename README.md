@@ -191,11 +191,11 @@ Feel free to connect and follow my work:
 
 
 
-**❤️ Special Thanks**
+## ❤️ Special Thanks
 Thanks to the Programming Hero web development curriculum and mentors for guidance and inspiration throughout the project! **
 
 
 **🔒 Built with passion, powered by React, and deployed with love!* 
 
-# develop by AL IMRAN with ❤️
+# Developed by AL IMRAN with ❤️
 

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getAuth } from "firebase/auth";
 import { useEffect } from 'react';
 
-const axiosSecure = axios.create({ baseURL: 'http://localhost:5000' });
+const axiosSecure = axios.create({ baseURL: 'https://aura-match-server.vercel.app' });
 
 const useAxiosSecure = () => {
   useEffect(() => {
