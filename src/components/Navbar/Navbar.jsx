@@ -17,7 +17,7 @@ const Navbar = () => {
   const { user, logOut } = useAuth();
 
   return (
-    <header className="bg-[#d4e09b] text-[#222] shadow-md sticky top-0 z-50">
+    <header className="bg-gradient-to-br from-[#d4e09b] via-[#d4e09b] to-[#cbdfbd]  text-[#222] shadow-md sticky top-0 z-50">
       <div className="mx-auto px-6 py-3 flex justify-between items-center relative">
         {/* Logo */}
         <Link to="/" className="text-2xl z-20">
@@ -59,7 +59,7 @@ const Navbar = () => {
               />
               <button
                 onClick={logOut}
-                className="text-sm px-3 py-1 bg-red-400 hover:bg-red-500 text-white rounded-lg transition"
+                className="text-xl px-3 py-1 bg-red-400 hover:bg-red-500 text-white rounded-lg transition"
               >
                 Logout
               </button>
@@ -68,7 +68,7 @@ const Navbar = () => {
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Link
                 to="/login"
-                className="bg-[#f19c79] text-white px-4 py-1.5 rounded-xl shadow hover:bg-[#e6855f] transition-all duration-300"
+                className="bg-gradient-to-r from-[#f19c79] to-[#f6bd60] text-xl text-white px-4 py-1.5 rounded-xl shadow hover:bg-[#e6855f] transition-all duration-300"
               >
                 Login
               </Link>
