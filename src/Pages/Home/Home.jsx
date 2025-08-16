@@ -5,6 +5,7 @@ import BannerSlider from '../../components/BannerSlider/BannerSlider';
 import SuccessStory from '../../components/SuccessStory/SuccessStory';
 import SuccessCounter from '../../components/SuccessCounter/successCounter';
 import PremiumBiodata from '../../components/PremiumBiodata/PremiumBiodata';
+import MatchingQuiz from '../../components/MatchingQuiz/MatchingQuiz';
 
 
 const Home = () => {
@@ -15,6 +16,7 @@ const Home = () => {
             <HowItWorks/>
             <SuccessCounter/>
             <SuccessStory/>
+            <MatchingQuiz/>
             
         </div>
     );

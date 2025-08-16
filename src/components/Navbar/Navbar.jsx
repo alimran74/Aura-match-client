@@ -17,7 +17,7 @@ const Navbar = () => {
   const { user, logOut } = useAuth();
 
   return (
-    <header className="bg-gradient-to-br from-[#d4e09b] via-[#d4e09b] to-[#cbdfbd]  text-[#222] shadow-md sticky top-0 z-50">
+    <header className="bg-gradient-to-br from-[#cbdfbd] via-[#ccd892] to-[#cbdfbd]  text-[#222] shadow-md sticky top-0 z-50">
       <div className="mx-auto px-6 py-3 flex justify-between items-center relative">
         {/* Logo */}
         <Link to="/" className="text-2xl z-20">
