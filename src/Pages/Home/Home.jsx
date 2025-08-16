@@ -7,6 +7,7 @@ import SuccessCounter from '../../components/SuccessCounter/successCounter';
 import PremiumBiodata from '../../components/PremiumBiodata/PremiumBiodata';
 import MatchingQuiz from '../../components/MatchingQuiz/MatchingQuiz';
 import BenefitsSection from '../../components/Benefits/BenefitsSection';
+import HeroSection from '../../components/HeroSection/HeroSection';
 
 
 const Home = () => {
@@ -15,10 +16,11 @@ const Home = () => {
             <BannerSlider/>
             <PremiumBiodata/>
             <HowItWorks/>
-            <SuccessCounter/>
             <MatchingQuiz/>
             <SuccessStory/>
             <BenefitsSection/>
+            <SuccessCounter/>
+            <HeroSection/>
             
             
         </div>
