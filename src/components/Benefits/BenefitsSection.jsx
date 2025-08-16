@@ -1,0 +1,59 @@
+import React from "react";
+import { motion } from "framer-motion";
+import { FaCheckCircle, FaShieldAlt, FaUserFriends } from "react-icons/fa";
+
+const benefits = [
+  {
+    icon: <FaUserFriends size={40} className="text-[#f19c79]" />,
+    title: "Verified Members",
+    description: "All profiles are verified to ensure real, genuine connections.",
+  },
+  {
+    icon: <FaShieldAlt size={40} className="text-[#f19c79]" />,
+    title: "Secure Messaging",
+    description: "Chat safely with end-to-end encrypted messaging.",
+  },
+  {
+    icon: <FaCheckCircle size={40} className="text-[#f19c79]" />,
+    title: "Tailored Matches",
+    description: "Get matches curated specifically according to your preferences.",
+  },
+];
+
+const BenefitsSection = () => {
+  return (
+    <div className="relative bg-[#1a1a2e] py-12 px-6 md:px-12 overflow-hidden ">
+      {/* Background Glow */}
+      <div className="absolute -top-20 -left-20 w-96 h-96 bg-gradient-to-r from-[#f19c79]/40 via-[#d4e09b]/40 to-[#cbdfbd]/40 rounded-full filter blur-3xl animate-pulse"></div>
+      <div className="absolute -bottom-20 -right-20 w-96 h-96 bg-gradient-to-r from-[#cbdfbd]/40 via-[#d4e09b]/40 to-[#f19c79]/40 rounded-full filter blur-3xl animate-pulse"></div>
+
+      <h2 className="text-3xl md:text-4xl font-bold text-center text-[#f19c79] mb-12 z-10 relative">
+        Why Choose AuraMatch?
+      </h2>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 z-10 relative">
+        {benefits.map((benefit, index) => (
+          <motion.div
+            key={benefit.title}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: index * 0.2 }}
+            className="bg-[#2a2a45] rounded-3xl p-8 flex flex-col items-center text-center shadow-lg hover:scale-105 transition-transform"
+          >
+            <motion.div
+              whileHover={{ scale: 1.2 }}
+              className="mb-4"
+            >
+              {benefit.icon}
+            </motion.div>
+            <h3 className="text-xl font-semibold text-[#eaeaea] mb-2">{benefit.title}</h3>
+            <p className="text-gray-300 text-sm">{benefit.description}</p>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default BenefitsSection;

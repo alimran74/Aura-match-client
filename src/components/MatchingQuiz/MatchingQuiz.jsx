@@ -76,7 +76,7 @@ const MatchingQuiz = () => {
   };
 
   return (
-    <div className=" mx-auto p-6 bg-[#f6f4d2] shadow-2xl ">
+    <div className=" mx-auto px-8 pt-6 pb-12 bg-[#f6f4d2]  ">
       <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-gray-900 ">
          Find Your Perfect Match! 
       </h2>
