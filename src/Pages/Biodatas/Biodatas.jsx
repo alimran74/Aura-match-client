@@ -51,64 +51,99 @@ const Biodatas = () => {
   return (
     <div className="min-h-screen bg-[#f6f4d2] text-[#333] p-6 md:p-10 grid grid-cols-1 lg:grid-cols-4 gap-6">
       {/* Filter Section */}
-      <div className="bg-[#d4e09b] rounded-xl p-6 shadow-md lg:col-span-1">
-        <h2 className="text-2xl font-bold text-[#f19c79] mb-4">Filters</h2>
+      {/* Filter Section */}
+<div className="bg-[#d4e09b] rounded-xl p-6 shadow-md lg:col-span-1 flex flex-col justify-between max-h-[600px]">
+  <div>
+    <h2 className="text-2xl font-bold text-[#f19c79] mb-4 text-center">
+      Filters
+    </h2>
 
-        {/* Age Range */}
-        <div className="mb-4">
-          <label className="block mb-1 font-medium">Age Range</label>
-          <div className="flex items-center gap-2">
-            <input
-              type="number"
-              min={10}
-              max={100}
-              value={ageRange[0]}
-              onChange={(e) => setAgeRange([+e.target.value, ageRange[1]])}
-              className="w-full border px-2 py-1 rounded"
-            />
-            <span>-</span>
-            <input
-              type="number"
-              min={10}
-              max={100}
-              value={ageRange[1]}
-              onChange={(e) => setAgeRange([ageRange[0], +e.target.value])}
-              className="w-full border px-2 py-1 rounded"
-            />
-          </div>
-        </div>
-
-        {/* Biodata Type */}
-        <div className="mb-4">
-          <label className="block mb-1 font-medium">Biodata Type</label>
-          <select
-            value={biodataType}
-            onChange={(e) => setBiodataType(e.target.value)}
-            className="w-full border px-2 py-1 rounded"
-          >
-            <option value="">All</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-          </select>
-        </div>
-
-        {/* Division */}
-        <div>
-          <label className="block mb-1 font-medium">Division</label>
-          <select
-            value={division}
-            onChange={(e) => setDivision(e.target.value)}
-            className="w-full border px-2 py-1 rounded"
-          >
-            <option value="">All</option>
-            {divisions.map((div) => (
-              <option key={div} value={div}>
-                {div}
-              </option>
-            ))}
-          </select>
-        </div>
+    {/* Age Range */}
+    <div className="mb-4">
+      <label className="block mb-1 font-medium">Age Range</label>
+      <div className="flex items-center gap-2">
+        <input
+          type="number"
+          min={10}
+          max={100}
+          value={ageRange[0]}
+          onChange={(e) => setAgeRange([+e.target.value, ageRange[1]])}
+          className="w-full border px-2 py-1 rounded"
+        />
+        <span>-</span>
+        <input
+          type="number"
+          min={10}
+          max={100}
+          value={ageRange[1]}
+          onChange={(e) => setAgeRange([ageRange[0], +e.target.value])}
+          className="w-full border px-2 py-1 rounded"
+        />
       </div>
+    </div>
+
+    {/* Biodata Type */}
+    <div className="mb-4">
+      <label className="block mb-1 font-medium">Biodata Type</label>
+      <select
+        value={biodataType}
+        onChange={(e) => setBiodataType(e.target.value)}
+        className="w-full border px-2 py-1 rounded"
+      >
+        <option value="">All</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+    </div>
+
+    {/* Division */}
+    <div className="mb-6">
+      <label className="block mb-1 font-medium">Division</label>
+      <select
+        value={division}
+        onChange={(e) => setDivision(e.target.value)}
+        className="w-full border px-2 py-1 rounded"
+      >
+        <option value="">All</option>
+        {divisions.map((div) => (
+          <option key={div} value={div}>
+            {div}
+          </option>
+        ))}
+      </select>
+    </div>
+  </div>
+
+  {/* Extra Content at Bottom */}
+  <div className="mt-6 space-y-4">
+    {/* Quick Stats */}
+    <div className="bg-[#cbdfbd] rounded-lg p-4 shadow-inner text-center">
+      <p className="text-sm text-gray-700">📊 Total Biodatas</p>
+      <p className="text-xl font-bold text-[#444]">{total}</p>
+    </div>
+
+    {/* Tip / Info */}
+    <div className="bg-[#f6f4d2] rounded-lg p-3 border border-[#f19c79] text-center">
+      <p className="text-sm text-gray-600 italic">
+        💡 Use filters to quickly find biodatas that match your preferences.
+      </p>
+    </div>
+
+    {/* Reset Filters Button */}
+    <button
+      onClick={() => {
+        setAgeRange([10, 100]);
+        setBiodataType("");
+        setDivision("");
+        setPage(1);
+      }}
+      className="w-full bg-[#f19c79] text-white py-2 rounded-lg hover:bg-[#e6855f] transition"
+    >
+      Reset Filters
+    </button>
+  </div>
+</div>
+
 
       {/* Biodata List Section */}
       <div className="lg:col-span-3">
@@ -129,7 +164,7 @@ const Biodatas = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
-                  className="bg-[#cbdfbd] rounded-xl shadow-md overflow-hidden hover:shadow-lg transition"
+                  className="bg-gradient-to-br from-[#d4e09b] via-[#d4e09b] to-[#cbdfbd] opacity- rounded-xl shadow-md overflow-hidden hover:shadow-lg  transition"
                 >
                   <img
                     src={biodata.profileImage}
