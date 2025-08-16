@@ -43,37 +43,44 @@ const FAQSection = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-16 bg-[#f6f4d2] rounded-2xl shadow-lg">
-      <h2 className="text-3xl md:text-4xl font-bold text-center text-[#f19c79] mb-12">
-        Frequently Asked Questions
-      </h2>
+    <div className="bg-[#f6f4d2] pt-6 pb-12 px-6">
+      <div className="max-w-6xl mx-auto px-6 bg-[#f6f4d2] rounded-2xl pb-6 shadow-lg">
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">
+          Frequently Asked Questions
+        </h2>
 
-      <div className="space-y-4">
-        {faqData.map((item, index) => (
-          <div key={index} className="border border-[#cbdfbd] rounded-xl overflow-hidden shadow-sm">
-            <button
-              onClick={() => toggle(index)}
-              className="w-full flex justify-between items-center px-6 py-4 bg-[#d4e09b] hover:bg-[#cbdfbd] transition font-medium text-gray-800"
+        <div className="space-y-4">
+          {faqData.map((item, index) => (
+            <div
+              key={index}
+              className="border border-[#f19c79] rounded-xl overflow-hidden shadow-sm"
             >
-              {item.question}
-              {openIndex === index ? <FaChevronUp /> : <FaChevronDown />}
-            </button>
+              <button
+                onClick={() => toggle(index)}
+                className="w-full flex justify-between items-center px-6 py-4 bg-[#d4e09b] hover:bg-[#cbdfbd] transition font-medium text-gray-800"
+              >
+                {item.question}
+                {openIndex === index ? <FaChevronUp /> : <FaChevronDown />}
+              </button>
 
-            <AnimatePresence>
-              {openIndex === index && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="px-6 py-4 bg-[#f6f4d2] text-gray-700"
-                >
-                  {item.answer}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        ))}
+              <AnimatePresence>
+                {openIndex === index && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.4, ease: "easeInOut" }}
+                    className="overflow-hidden"
+                  >
+                    <div className="px-6 py-4 bg-[#f09f7c] text-gray-700">
+                      {item.answer}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
