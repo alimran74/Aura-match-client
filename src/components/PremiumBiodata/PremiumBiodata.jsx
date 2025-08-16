@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router";
 import { LoadingProvider } from "../../context/LoadingContext";
 
+
 const PremiumBiodata = () => {
   const axios = useAxios();
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const PremiumBiodata = () => {
   });
 
   return (
-    <section className="pt-20 pb-12 px-6 bg-gradient-to-br from-[#f6f4d2] via-[#e8f5e9] to-[#f6f4d2] min-h-[60vh]">
+    <section className="pt-20 pb-12 px-6 bg-[#f6f4d2]  min-h-[60vh]">
       <h2 className="text-3xl font-bold text-[#222] text-center mb-12">
         Premium Biodata ✨
       </h2>
@@ -40,7 +41,7 @@ const PremiumBiodata = () => {
               className="relative group bg-white/10 backdrop-blur-lg border border-white/30 rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-[0_0_25px_rgba(241,156,121,0.6)]"
             >
               {/* Gradient border glow */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#f19c79] via-[#f6bd60] to-[#cbdfbd] opacity-30 group-hover:opacity-50 transition duration-500 blur-xl"></div>
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#d4e09b] via-[#d4e09b] to-[#cbdfbd] opacity- group-hover:opacity-50 transition duration-500 blur-xl"></div>
 
               {/* Content */}
               <div className="relative z-10">
